@@ -6,236 +6,40 @@
 <title>The Darizona Masters 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root {
-  --green:#1B4332;--green2:#2D6A4F;--gold:#B5803A;--gold2:#D4A853;
-  --sand:#F7F3EA;--sand2:#EDE8DB;--white:#FFFFFF;
-  --text:#1A1A1A;--muted:#666;--border:#E0D9CC;--radius:12px;
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:"Inter",-apple-system,sans-serif;background:var(--sand);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;}
-.serif{font-family:"Playfair Display",Georgia,serif;}
-.page{display:none;padding:20px;max-width:680px;margin:0 auto;padding-bottom:56px;}
-.page.on{display:block;}
-
-/* HERO */
-.hero{background:var(--green);color:var(--white);border-radius:16px;padding:26px 22px 20px;margin-bottom:18px;text-align:center;position:relative;overflow:hidden;}
-.hero::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,.02) 40px,rgba(255,255,255,.02) 80px);}
-.hero-icon{font-size:34px;margin-bottom:6px;position:relative;}
-.hero-title{font-family:"Playfair Display",serif;font-size:26px;font-weight:800;letter-spacing:-.5px;line-height:1.15;position:relative;}
-.hero-sub{font-size:13px;color:rgba(255,255,255,.6);margin-top:5px;position:relative;}
-.gold-line{width:44px;height:2px;background:var(--gold2);margin:10px auto 0;border-radius:2px;position:relative;}
-
-/* CARDS */
-.card{background:var(--white);border-radius:var(--radius);padding:16px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.06),0 0 0 1px rgba(0,0,0,.04);}
-.card-label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;}
-
-/* INPUTS */
-input[type=text],input[type=number],select,textarea{width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:9px;font-size:15px;background:var(--sand);color:var(--text);outline:none;font-family:inherit;transition:border-color .15s;appearance:none;-webkit-appearance:none;}
-input:focus,select:focus,textarea:focus{border-color:var(--green);background:var(--white);}
-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;background-color:var(--sand);}
-select:focus{background-color:var(--white);}
-textarea{resize:vertical;min-height:60px;}
-
-/* BUTTONS */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:12px 20px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:opacity .15s,transform .1s;-webkit-tap-highlight-color:transparent;}
-.btn:active{transform:scale(.97);}
-.primary{background:var(--green);color:var(--white);}
-.primary:hover{opacity:.9;}
-.secondary{background:var(--white);color:var(--text);border:1.5px solid var(--border);}
-.secondary:hover{background:var(--sand);}
-.btn-gold{background:var(--gold);color:var(--white);}
-.btn-sm{font-size:13px;padding:8px 14px;}
-.full{width:100%;}
-.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
-
-/* TAGS */
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;min-height:22px;}
-.tag{display:inline-flex;align-items:center;gap:4px;background:#E8F3EC;color:var(--green);padding:4px 10px;border-radius:99px;font-size:13px;font-weight:500;}
-.tag-x{cursor:pointer;font-size:10px;opacity:.6;margin-left:2px;}
-
-/* POT */
-.pot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px;}
-.pot-box{background:var(--sand);border-radius:10px;padding:12px;text-align:center;}
-.pot-val{font-size:21px;font-weight:700;color:var(--green);font-family:"Playfair Display",serif;}
-.pot-lbl{font-size:11px;color:var(--muted);margin-top:2px;}
-
-/* SETUP STEPS */
-.setup-step{display:flex;align-items:flex-start;gap:11px;margin-bottom:13px;font-size:14px;line-height:1.6;}
-.step-n{min-width:26px;height:26px;background:var(--green);color:var(--white);border-radius:50%;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
-code{background:var(--sand2);padding:2px 6px;border-radius:5px;font-size:12px;word-break:break-all;}
-
-/* NAV */
-.sub-nav{display:flex;gap:6px;margin-bottom:16px;}
-.nav-tab{flex:1;text-align:center;padding:9px 4px;border-radius:9px;font-size:12px;font-weight:500;cursor:pointer;border:1.5px solid var(--border);background:var(--white);color:var(--muted);transition:all .15s;-webkit-tap-highlight-color:transparent;white-space:nowrap;}
-.nav-tab.active{background:var(--green);color:var(--white);border-color:var(--green);}
-.fun-subnav{flex:1;text-align:center;padding:8px 4px;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;border:1.5px solid var(--border);background:var(--white);color:var(--muted);transition:all .15s;font-family:inherit;-webkit-tap-highlight-color:transparent;}
-.fun-subnav.active{background:var(--gold);color:var(--white);border-color:var(--gold);}
-
-/* TIER */
-.tier-head-row{display:flex;align-items:center;margin-bottom:10px;cursor:pointer;}
-.tier-label{display:inline-block;font-size:12px;font-weight:700;padding:4px 11px;border-radius:99px;pointer-events:none;}
-.tl1{background:#EDE9FE;color:#4C1D95;}.tl2{background:#DBEAFE;color:#1E3A8A;}
-.tl3{background:#D1FAE5;color:#064E3B;}.tl4{background:#FEF3C7;color:#78350F;}
-.tl5{background:#FFE4E6;color:#881337;}.tl6{background:var(--sand2);color:#555;}
-.tier-caret{margin-left:auto;font-size:12px;color:var(--muted);transition:transform .2s;}
-.tier-caret.open{transform:rotate(180deg);}
-
-/* GOLFER GRID */
-.gg{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:6px;}
-.gcard{background:var(--sand);border:1.5px solid var(--border);border-radius:10px;padding:9px 11px;cursor:pointer;text-align:left;transition:background .1s,border-color .1s;-webkit-tap-highlight-color:transparent;}
-.gcard:hover{background:var(--sand2);}
-.gcard.picked{background:#E8F3EC;border-color:var(--green2);}
-.gname{font-size:13px;font-weight:600;color:var(--text);line-height:1.3;}
-.gcard.picked .gname{color:var(--green);}
-.godds{font-size:11px;color:var(--muted);margin-top:2px;}
-
-/* SEARCH + PROGRESS */
-.search{width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;background:var(--white);color:var(--text);outline:none;font-family:inherit;margin-bottom:12px;transition:border-color .15s;}
-.search:focus{border-color:var(--green);}
-.bar-wrap{background:var(--sand2);border-radius:99px;height:5px;margin-bottom:16px;}
-.bar{height:5px;border-radius:99px;background:var(--green2);transition:width .35s;}
-.lock-banner{background:#FEF3C7;border-radius:10px;padding:11px 14px;font-size:13px;color:#78350F;margin-bottom:14px;display:flex;align-items:center;gap:8px;font-weight:500;}
-
-/* LEADERBOARD */
-.pool-card{background:var(--white);border-radius:var(--radius);margin-bottom:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06),0 0 0 1px rgba(0,0,0,.04);}
-.pool-header{display:flex;align-items:center;gap:12px;padding:13px 15px;border-bottom:1px solid var(--sand2);}
-.lb-rank{width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;background:var(--sand2);color:var(--muted);flex-shrink:0;}
-.lb-rank.gold-rank{background:var(--gold);color:var(--white);}
-.lb-rank.silver-rank{background:#A8A8A8;color:var(--white);}
-.lb-rank.bronze-rank{background:#B87333;color:var(--white);}
-.pool-name{font-size:15px;font-weight:700;flex:1;}
-.pool-score-wrap{text-align:right;min-width:70px;}
-.pool-total{font-family:"Playfair Display",serif;font-size:24px;font-weight:700;color:var(--green);line-height:1;}
-.pool-total.pending{font-family:"Inter",sans-serif;font-size:13px;font-weight:400;color:#bbb;}
-.pool-prize{font-size:12px;font-weight:600;margin-top:2px;}
-.prize-1{color:#B5803A;}.prize-2{color:#888;}.prize-3{color:#B87333;}
-.gt-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
-.gt{width:100%;border-collapse:collapse;font-size:12px;}
-.gt th{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding:7px 9px;border-bottom:1px solid var(--sand2);text-align:right;white-space:nowrap;}
-.gt th:first-child{text-align:left;padding-left:15px;min-width:130px;}
-.gt td{padding:8px 9px;text-align:right;border-bottom:1px solid var(--sand2);white-space:nowrap;vertical-align:middle;color:var(--text);}
-.gt td:first-child{text-align:left;padding-left:15px;font-weight:500;}
-.gt tr:last-child td{border-bottom:none;}
-.gt tr.gt-cut td{opacity:.4;text-decoration:line-through;font-style:italic;}
-.gt-cut-badge{display:inline-block;background:#F3F4F6;color:#9CA3AF;font-size:10px;padding:1px 5px;border-radius:4px;margin-left:4px;font-style:normal;text-decoration:none;vertical-align:middle;}
-.score-under{color:#064E3B;font-weight:600;}.score-over{color:#881337;font-weight:600;}.score-even{color:var(--muted);}
-.pos-num{font-weight:700;}.thru-live{color:var(--gold);font-weight:600;}
-.leader-banner{background:var(--green);color:var(--white);border-radius:12px;padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;}
-.leader-left .leader-label{font-size:11px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.07em;}
-.leader-left .leader-name{font-family:"Playfair Display",serif;font-size:17px;font-weight:700;margin-top:2px;}
-.leader-left .leader-thru{font-size:12px;color:rgba(255,255,255,.65);margin-top:2px;}
-.leader-score{font-family:"Playfair Display",serif;font-size:30px;font-weight:700;color:#86EFAC;}
-.last-updated{font-size:11px;color:var(--muted);text-align:right;margin-bottom:10px;}
-
-/* CHIPS */
-.chip{display:inline-block;padding:3px 8px;border-radius:7px;font-size:12px;margin:2px;}
-.ch1{background:#EDE9FE;color:#4C1D95;}.ch2{background:#DBEAFE;color:#1E3A8A;}
-.ch3{background:#D1FAE5;color:#064E3B;}.ch4{background:#FEF3C7;color:#78350F;}
-.ch5{background:#FFE4E6;color:#881337;}.ch6{background:var(--sand2);color:#555;}
-.dash-chip{display:inline-block;background:var(--sand);border:1px solid var(--border);border-radius:7px;padding:3px 8px;font-size:12px;color:#aaa;margin:2px;}
-.sum-row{padding:12px 0;border-bottom:1px solid var(--sand2);}
-.sum-row:last-child{border-bottom:none;}
-
-/* SHARE */
-.share-box{background:var(--white);border:1.5px dashed var(--border);border-radius:12px;padding:14px;margin-top:14px;}
-.share-url{font-size:12px;word-break:break-all;color:var(--green2);font-family:monospace;background:var(--sand);border:1px solid var(--border);border-radius:8px;padding:9px 11px;margin-top:6px;}
-.green-box{background:#E8F3EC;border-radius:12px;padding:14px;font-size:13px;line-height:1.75;color:#1A3B0A;margin-top:12px;}
-
-/* PROPS */
-.prop-card{background:var(--white);border-radius:var(--radius);margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.06),0 0 0 1px rgba(0,0,0,.04);overflow:hidden;}
-.prop-header{padding:12px 15px;border-bottom:1px solid var(--sand2);display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
-.prop-label{font-size:13px;font-weight:700;color:var(--text);}
-.prop-pot{font-size:12px;font-weight:700;color:var(--gold);white-space:nowrap;margin-top:1px;}
-.prop-q{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.4;}
-.prop-body{padding:12px 15px;}
-.prop-input-row{margin-bottom:8px;}
-.prop-input-row label{font-size:12px;color:var(--muted);display:block;margin-bottom:4px;}
-.prop-picks-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:4px;}
-.prop-picks-table td{padding:5px 0;border-bottom:1px solid var(--sand2);}
-.prop-picks-table tr:last-child td{border-bottom:none;}
-.prop-picks-table td:first-child{color:var(--muted);width:40%;}
-.prop-picks-table td:last-child{font-weight:600;text-align:right;}
-.prop-winner-badge{display:inline-block;background:var(--gold);color:var(--white);font-size:11px;padding:2px 8px;border-radius:99px;font-weight:600;margin-left:6px;}
-.prop-my-pick{display:inline-block;background:#E8F3EC;color:var(--green);font-size:11px;padding:2px 8px;border-radius:99px;font-weight:600;margin-left:4px;}
-
-/* PAYOUT TABLE */
-.payout-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--sand2);font-size:14px;}
-.payout-row:last-child{border-bottom:none;}
-.payout-win{font-weight:700;color:var(--green);}
-.payout-lose{color:var(--muted);}
-.payout-net-pos{font-weight:700;color:#064E3B;font-size:15px;}
-.payout-net-neg{font-weight:700;color:#881337;font-size:15px;}
-
-/* RESULTS FORM */
-.result-field{margin-bottom:14px;}
-.result-field label{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:5px;}
-.result-field .hint{font-size:12px;color:var(--muted);margin-bottom:5px;}
-
-/* DRINK RULES */
-.drink-rule{display:flex;align-items:flex-start;gap:11px;padding:10px 0;border-bottom:1px solid var(--sand2);font-size:14px;line-height:1.5;}
-.drink-rule:last-child{border-bottom:none;}
-.drink-icon{font-size:20px;flex-shrink:0;margin-top:1px;}
-
-/* TRASH */
-.trash-input-row{display:flex;gap:7px;margin-bottom:12px;}
-.trash-in{flex:1;padding:10px 12px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;background:var(--white);font-family:inherit;outline:none;}
-.trash-in:focus{border-color:var(--green);}
-.trash-msg{padding:10px 0;border-bottom:1px solid var(--sand2);}
-.trash-msg:last-child{border-bottom:none;}
-.trash-meta{display:flex;align-items:center;gap:6px;margin-bottom:3px;}
-.trash-author{font-size:12px;font-weight:700;color:var(--green);}
-.trash-time{font-size:11px;color:var(--muted);}
-.trash-text{font-size:14px;line-height:1.5;}
-.trash-empty{text-align:center;padding:20px;color:var(--muted);font-size:14px;}
-
-/* MISC */
-.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;}
-.badge-green{background:#D1FAE5;color:#064E3B;}.badge-gold{background:#FEF3C7;color:#78350F;}.badge-gray{background:var(--sand2);color:#555;}
-.live-dot{display:inline-block;width:8px;height:8px;background:#22C55E;border-radius:50%;margin-right:4px;animation:pulse 1.5s ease-in-out infinite;}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.85);}}
-.spin{display:inline-block;width:17px;height:17px;border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite;}
-.spin-dark{border-color:rgba(0,0,0,.1);border-top-color:var(--green2);}
-@keyframes sp{to{transform:rotate(360deg);}}
-.center{text-align:center;padding:50px 20px;}
-.sub{font-size:14px;color:var(--muted);margin-bottom:18px;line-height:1.55;}
-.fun-title{font-family:"Playfair Display",serif;font-size:17px;font-weight:700;margin-bottom:12px;}
-a{color:var(--green2);}
-.divider{height:1px;background:var(--sand2);margin:16px 0;}
-</style>
+<script type="module" src="/src/main.js"></script>
 </head>
 <body>
 
-<!-- LOADING -->
-<div id="pg-load" class="page on">
-  <div class="center"><div class="spin spin-dark" style="width:26px;height:26px;margin:0 auto;"></div>
-  <p style="margin-top:14px;color:var(--muted);font-size:14px;">Loading...</p></div>
-</div>
-
-<!-- FIREBASE SETUP -->
-<div id="pg-setup" class="page">
-  <div style="padding-top:14px;">
+<!-- AUTH -->
+<div id="pg-auth" class="page">
+  <div style="padding-top:40px;max-width:400px;margin:0 auto;">
     <div class="hero">
       <div class="hero-icon">&#9971;&#127797;</div>
       <div class="hero-title serif">The Darizona Masters</div>
       <div class="hero-sub">Darren Sweetwood Bachelor Pool &bull; Augusta 2026</div>
       <div class="gold-line"></div>
     </div>
-    <p class="sub">First, set up a free Firebase database (~3 min). This stores everyone's picks and syncs everything live.</p>
     <div class="card">
-      <div class="setup-step"><span class="step-n">1</span><span>Go to <strong><a href="https://console.firebase.google.com" target="_blank">console.firebase.google.com</a></strong> and sign in with Google</span></div>
-      <div class="setup-step"><span class="step-n">2</span><span>Click <strong>"Add project"</strong> &rarr; name it anything &rarr; click through &rarr; <strong>Create project</strong></span></div>
-      <div class="setup-step"><span class="step-n">3</span><span>Left sidebar: <strong>Build &rarr; Realtime Database &rarr; Create Database</strong> &rarr; any location &rarr; <strong>"Start in test mode"</strong> &rarr; Enable</span></div>
-      <div class="setup-step"><span class="step-n">4</span><span>Copy the URL shown: <code>https://your-project-default-rtdb.firebaseio.com</code></span></div>
+      <div class="card-label">Sign in</div>
+      <p class="sub" style="margin-bottom:14px;">Enter your email and we'll send you a magic link &mdash; no password needed.</p>
+      <form id="magic-link-form">
+        <input type="email" id="auth-email" placeholder="your@email.com" autocomplete="email" style="margin-bottom:10px;width:100%;box-sizing:border-box;" />
+        <button type="submit" class="btn primary full" id="auth-btn">Send magic link &rarr;</button>
+      </form>
+      <div id="auth-sent" style="display:none;text-align:center;padding:14px 0;">
+        <div style="font-size:24px;margin-bottom:8px;">&#128231;</div>
+        <div style="font-weight:700;margin-bottom:4px;">Check your email</div>
+        <div style="font-size:13px;color:var(--muted);">Click the link we sent you to sign in.</div>
+      </div>
+      <p id="auth-error" style="color:#881337;font-size:13px;margin-top:8px;"></p>
     </div>
-    <div class="card">
-      <div class="card-label">Firebase database URL</div>
-      <input type="text" id="fb-input" placeholder="https://your-project-default-rtdb.firebaseio.com" />
-      <p style="font-size:12px;color:#aaa;margin-top:6px;">Test mode = 30 days of free access &mdash; more than enough</p>
-    </div>
-    <button class="btn primary full" id="setup-btn" onclick="doSetup()">Connect &amp; continue &rarr;</button>
-    <p style="font-size:12px;color:#bbb;text-align:center;margin-top:10px;">Only the commissioner does this once</p>
   </div>
+</div>
+
+<!-- LOADING -->
+<div id="pg-load" class="page on">
+  <div class="center"><div class="spin spin-dark" style="width:26px;height:26px;margin:0 auto;"></div>
+  <p style="margin-top:14px;color:var(--muted);font-size:14px;">Loading...</p></div>
 </div>
 
 <!-- CREATE POOL -->
@@ -247,26 +51,27 @@ a{color:var(--green2);}
       <div class="hero-sub">Darren Sweetwood Bachelor Pool &bull; Augusta 2026</div>
       <div class="gold-line"></div>
     </div>
-    <p class="sub">Add everyone and set your buy-ins. You'll get a shareable link when done.</p>
+    <p class="sub">Set your buy-ins, create the pool, then share the link with everyone.</p>
     <div class="card"><div class="card-label">Your name (commissioner)</div><input type="text" id="in-admin" placeholder="e.g. Dan" /></div>
     <div class="card">
       <div class="card-label">Masters pool buy-in per person ($)</div>
-      <input type="number" id="in-buyin" value="20" min="1" max="5000" oninput="refreshPot()" />
+      <input type="number" id="in-buyin" value="20" min="1" max="5000" />
       <p style="font-size:12px;color:var(--muted);margin-top:6px;">Paid out 70/30 to top 2 pool finishers</p>
     </div>
     <div class="card">
       <div class="card-label">Saturday prop bets buy-in per person ($)</div>
-      <input type="number" id="in-prop-buyin" value="10" min="1" max="500" oninput="refreshPot()" />
+      <input type="number" id="in-prop-buyin" value="10" min="1" max="500" />
       <p style="font-size:12px;color:var(--muted);margin-top:6px;">Split evenly across 10 props &mdash; $<span id="per-prop-display">1</span> pot per prop per person</p>
     </div>
     <div class="card">
-      <div class="card-label">Add all players</div>
-      <div style="display:flex;gap:7px;">
-        <input type="text" id="in-player" placeholder="Player name..." style="flex:1;" onkeydown="if(event.key==='Enter')addPlayer()" />
-        <button class="btn secondary btn-sm" onclick="addPlayer()" style="flex-shrink:0;">+ Add</button>
+      <div class="card-label">Saturday golfers</div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:8px;">These names appear in prop bet dropdowns. Email is optional &mdash; if provided they'll get a magic link invite.</p>
+      <div style="display:flex;gap:7px;margin-bottom:6px;">
+        <input type="text" id="in-golfer-name" placeholder="Name" style="flex:1;" />
+        <input type="email" id="in-golfer-email" placeholder="email (optional)" style="flex:1.4;" />
+        <button class="btn secondary btn-sm" id="add-golfer-btn" style="flex-shrink:0;">+ Add</button>
       </div>
-      <div class="tags" id="player-tags"></div>
-      <p style="font-size:12px;color:var(--muted);margin-top:8px;">Tip: Add <strong>Darren's Picks</strong> as a player &#128522;</p>
+      <div id="golfer-tags"></div>
     </div>
     <div class="card" id="pot-preview" style="display:none;">
       <div class="card-label">Money breakdown</div>
@@ -276,7 +81,7 @@ a{color:var(--green2);}
         <div class="pot-box"><div class="pot-val" id="per-prop-pot">$0</div><div class="pot-lbl">Per prop pot</div></div>
       </div>
     </div>
-    <button class="btn primary full" id="create-btn" onclick="createPool()">Create pool &amp; get link &rarr;</button>
+    <button class="btn primary full" id="create-btn">Create pool &amp; get link &rarr;</button>
   </div>
 </div>
 
@@ -290,13 +95,31 @@ a{color:var(--green2);}
       <div class="gold-line"></div>
     </div>
     <div class="sub-nav">
-      <div class="nav-tab active" onclick="showJoin()">&#127939; Pick</div>
-      <div class="nav-tab" onclick="showLeaderboard()">&#127942; Scores</div>
-      <div class="nav-tab" onclick="showSummary()">&#128203; All</div>
-      <div class="nav-tab" onclick="showFun()">&#127867; Fun</div>
+      <div class="nav-tab active" data-nav="join">&#127939; Pick</div>
+      <div class="nav-tab" data-nav="leaderboard">&#127942; Scores</div>
+      <div class="nav-tab" data-nav="summary">&#128203; All</div>
+      <div class="nav-tab" data-nav="fun">&#127867; Fun</div>
     </div>
     <div class="card"><div id="name-list" style="display:flex;flex-direction:column;gap:8px;"></div></div>
     <div class="pot-grid" id="pot-join"></div>
+  </div>
+</div>
+
+<!-- POOL JOIN (new member arriving via shared link) -->
+<div id="pg-pool-join" class="page">
+  <div style="padding-top:40px;max-width:400px;margin:0 auto;">
+    <div class="hero">
+      <div class="hero-icon">&#9971;&#127797;</div>
+      <div class="hero-title serif">The Darizona Masters</div>
+      <div class="hero-sub">Darren Sweetwood Bachelor Pool &bull; Augusta 2026</div>
+      <div class="gold-line"></div>
+    </div>
+    <div class="card">
+      <div class="card-label">Join the pool</div>
+      <p class="sub" style="margin-bottom:14px;">Enter the name everyone will see on the leaderboard.</p>
+      <input type="text" id="in-join-name" placeholder="Your name (e.g. Darren)" style="margin-bottom:10px;" />
+      <button class="btn primary full" id="join-btn">Join pool &rarr;</button>
+    </div>
   </div>
 </div>
 
@@ -305,23 +128,17 @@ a{color:var(--green2);}
   <div style="padding-top:14px;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
       <h2 class="serif" style="margin:0;font-size:20px;" id="pick-heading">Your picks</h2>
-      <button class="btn secondary btn-sm" onclick="showJoin()">&larr; Back</button>
+      <button class="btn secondary btn-sm" id="pick-back-btn">&larr; Back</button>
     </div>
     <p class="sub" id="pick-status">Pick one golfer from each tier.</p>
     <div id="pick-lock-banner" style="display:none;" class="lock-banner">&#128274; Masters picks are locked &mdash; tournament is underway</div>
     <div class="bar-wrap"><div class="bar" id="pick-bar" style="width:0%"></div></div>
-    <input class="search" type="text" id="pick-search" placeholder="Search any player..." oninput="renderTiers()" />
+    <input class="search" type="text" id="pick-search" placeholder="Search any player..." />
     <div id="tier-list"></div>
     <div class="btn-row">
-      <button class="btn primary" id="save-btn" onclick="savePicks()">Save Masters picks &#10003;</button>
+      <button class="btn primary full" id="submit-picks-btn">Submit picks &#10003;</button>
     </div>
-    <div style="margin-top:10px;background:var(--sand2);border-radius:10px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;">
-      <div>
-        <div style="font-size:13px;font-weight:600;">&#127922; Saturday Prop Bets</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:2px;">McDowell Mountain &bull; pick your answers</div>
-      </div>
-      <button class="btn btn-gold btn-sm" onclick="showPropPicks()">Pick props &rarr;</button>
-    </div>
+    <div id="picks-submitted-banner" style="display:none;" class="lock-banner" style="background:#D1FAE5;color:#064E3B;">&#10003; Picks submitted &mdash; locked in</div>
   </div>
 </div>
 
@@ -330,14 +147,15 @@ a{color:var(--green2);}
   <div style="padding-top:14px;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
       <h2 class="serif" style="margin:0;font-size:20px;">Saturday Props</h2>
-      <button class="btn secondary btn-sm" onclick="showJoin()">&larr; Back to players</button>
+      <button class="btn secondary btn-sm" id="prop-picks-back-btn">&larr; Back to players</button>
     </div>
     <p class="sub">McDowell Mountain Golf Club &bull; Lock in before tee-off Saturday</p>
     <div id="prop-lock-banner" style="display:none;" class="lock-banner">&#128274; Prop picks are locked &mdash; round is underway</div>
     <div id="prop-pick-list"></div>
     <div class="btn-row">
-      <button class="btn primary" id="prop-save-btn" onclick="savePropPicks()">Save prop picks &#10003;</button>
+      <button class="btn primary full" id="submit-prop-picks-btn">Submit prop picks &#10003;</button>
     </div>
+    <div id="prop-picks-submitted-banner" style="display:none;" class="lock-banner" style="background:#D1FAE5;color:#064E3B;">&#10003; Prop picks submitted &mdash; locked in</div>
   </div>
 </div>
 
@@ -345,18 +163,12 @@ a{color:var(--green2);}
 <div id="pg-leaderboard" class="page">
   <div style="padding-top:14px;">
     <div class="sub-nav">
-      <div class="nav-tab" onclick="showJoin()">&#127939; Pick</div>
-      <div class="nav-tab active" onclick="showLeaderboard()">&#127942; Scores</div>
-      <div class="nav-tab" onclick="showSummary()">&#128203; All</div>
-      <div class="nav-tab" onclick="showFun()">&#127867; Fun</div>
+      <div class="nav-tab" data-nav="join">&#127939; Pick</div>
+      <div class="nav-tab active" data-nav="leaderboard">&#127942; Scores</div>
+      <div class="nav-tab" data-nav="summary">&#128203; All</div>
+      <div class="nav-tab" data-nav="fun">&#127867; Fun</div>
     </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-      <h2 class="serif" style="margin:0;font-size:20px;">Darizona Leaderboard</h2>
-      <div style="display:flex;gap:6px;">
-        <button class="btn secondary btn-sm" id="test-btn" onclick="loadTestScores()" style="display:inline-flex;">&#127381; Test</button>
-        <button class="btn secondary btn-sm" id="refresh-btn" onclick="loadLeaderboard(true)">Refresh</button>
-      </div>
-    </div>
+    <h2 class="serif" style="margin-bottom:10px;font-size:20px;">Darizona Leaderboard</h2>
     <div id="lb-status" style="font-size:13px;color:var(--muted);margin-bottom:10px;"></div>
     <div id="leader-banner"></div>
     <div id="last-updated" class="last-updated"></div>
@@ -368,10 +180,10 @@ a{color:var(--green2);}
 <div id="pg-summary" class="page">
   <div style="padding-top:14px;">
     <div class="sub-nav">
-      <div class="nav-tab" onclick="showJoin()">&#127939; Pick</div>
-      <div class="nav-tab" onclick="showLeaderboard()">&#127942; Scores</div>
-      <div class="nav-tab active" onclick="showSummary()">&#128203; All</div>
-      <div class="nav-tab" onclick="showFun()">&#127867; Fun</div>
+      <div class="nav-tab" data-nav="join">&#127939; Pick</div>
+      <div class="nav-tab" data-nav="leaderboard">&#127942; Scores</div>
+      <div class="nav-tab active" data-nav="summary">&#128203; All</div>
+      <div class="nav-tab" data-nav="fun">&#127867; Fun</div>
     </div>
     <h2 class="serif" style="margin-bottom:4px;font-size:20px;">All picks</h2>
     <p class="sub" id="sum-meta"></p>
@@ -386,8 +198,8 @@ a{color:var(--green2);}
       <div style="font-size:13px;font-weight:700;color:#444;margin-bottom:4px;">Share the Darizona Masters</div>
       <div class="share-url" id="share-url"></div>
       <div style="display:flex;gap:8px;margin-top:9px;">
-        <button class="btn secondary btn-sm" onclick="copyLink(this)">Copy link</button>
-        <button class="btn secondary btn-sm" id="export-btn" onclick="exportCSV()" style="display:none;">&#11015; Export CSV</button>
+        <button class="btn secondary btn-sm" id="copy-link-btn">Copy link</button>
+        <button class="btn secondary btn-sm" id="export-btn" style="display:none;">&#11015; Export CSV</button>
       </div>
     </div>
   </div>
@@ -397,15 +209,15 @@ a{color:var(--green2);}
 <div id="pg-fun" class="page">
   <div style="padding-top:14px;">
     <div class="sub-nav">
-      <div class="nav-tab" onclick="showJoin()">&#127939; Pick</div>
-      <div class="nav-tab" onclick="showLeaderboard()">&#127942; Scores</div>
-      <div class="nav-tab" onclick="showSummary()">&#128203; All</div>
-      <div class="nav-tab active" onclick="showFun()">&#127867; Fun</div>
+      <div class="nav-tab" data-nav="join">&#127939; Pick</div>
+      <div class="nav-tab" data-nav="leaderboard">&#127942; Scores</div>
+      <div class="nav-tab" data-nav="summary">&#128203; All</div>
+      <div class="nav-tab active" data-nav="fun">&#127867; Fun</div>
     </div>
     <div style="display:flex;gap:6px;margin-bottom:16px;">
-      <button class="fun-subnav active" id="fsn-props" onclick="showFunSection('props')" style="flex:1;">&#127922; Props</button>
-      <button class="fun-subnav" id="fsn-rules" onclick="showFunSection('rules')" style="flex:1;">&#127867; Rules</button>
-      <button class="fun-subnav" id="fsn-trash" onclick="showFunSection('trash')" style="flex:1;">&#128172; Trash</button>
+      <button class="fun-subnav active" id="fsn-props" style="flex:1;">&#127922; Props</button>
+      <button class="fun-subnav" id="fsn-rules" style="flex:1;">&#127867; Rules</button>
+      <button class="fun-subnav" id="fsn-trash" style="flex:1;">&#128172; Trash</button>
     </div>
 
     <!-- PROPS SECTION -->
@@ -413,7 +225,7 @@ a{color:var(--green2);}
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
         <div class="fun-title" style="margin:0;">&#127922; Saturday Prop Bets</div>
         <div id="props-admin-btn" style="display:none;">
-          <button class="btn btn-gold btn-sm" onclick="showResultsEntry()">&#9997; Enter results</button>
+          <button class="btn btn-gold btn-sm" id="enter-results-btn">&#9997; Enter results</button>
         </div>
       </div>
       <p style="font-size:13px;color:var(--muted);margin-bottom:14px;" id="props-subtitle">McDowell Mountain Golf Club &bull; Saturday</p>
@@ -425,7 +237,7 @@ a{color:var(--green2);}
         <div class="fun-title">&#9997; Enter actual results</div>
         <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">Fill these in after the round to calculate payouts</p>
         <div class="card" id="results-form"></div>
-        <button class="btn primary full" onclick="saveResults()" style="margin-top:10px;">Calculate payouts &rarr;</button>
+        <button class="btn primary full" id="save-results-btn" style="margin-top:10px;">Calculate payouts &rarr;</button>
       </div>
 
       <!-- PAYOUT TABLE -->
@@ -468,8 +280,8 @@ a{color:var(--green2);}
       <div class="fun-title">&#128172; Trash Talk Board</div>
       <div class="card">
         <div class="trash-input-row">
-          <input class="trash-in" type="text" id="trash-msg-in" placeholder="Say something..." onkeydown="if(event.key==='Enter')postTrash()" />
-          <button class="btn primary btn-sm" onclick="postTrash()" style="flex-shrink:0;">Send</button>
+          <input class="trash-in" type="text" id="trash-msg-in" placeholder="Say something..." />
+          <button class="btn primary btn-sm" id="trash-send-btn" style="flex-shrink:0;">Send</button>
         </div>
         <div id="trash-list"><div class="trash-empty">No trash talk yet &mdash; start something &#128526;</div></div>
       </div>
@@ -477,975 +289,5 @@ a{color:var(--green2);}
   </div>
 </div>
 
-<script>
-// ── CONSTANTS ────────────────────────────────────────────────────────────────
-var MASTERS_LOCK = new Date("2026-04-09T12:00:00Z"); // 8am ET Thursday
-var PROPS_LOCK   = new Date("2026-04-12T14:00:00Z"); // 10am ET Saturday
-var CUT_PENALTY  = 80;
-var NUM_PROPS    = 10;
-
-// Prop definitions
-var PROPS = [
-  { id:"low_gross",     label:"Lowest gross score",              type:"player",     q:"Who shoots the lowest gross score in the group on Saturday?" },
-  { id:"high_gross",    label:"Highest gross score",             type:"player",     q:"Who shoots the highest gross score? (not counting anyone who leaves early)" },
-  { id:"long_drive",    label:"Longest drive",                   type:"player",     q:"Who hits the longest drive? Commissioner picks the hole on the day." },
-  { id:"closest_pin",   label:"Closest to the pin",              type:"player",     q:"Who is closest to the pin on the designated par 3? (announced on course)" },
-  { id:"first_lost",    label:"First lost ball",                 type:"player",     q:"Who loses the very first ball of the round?" },
-  { id:"high_hole",     label:"Highest score on one hole",       type:"number",     q:"What is the highest score anyone makes on a single hole? Closest guess wins (tie: lower guess wins)." },
-  { id:"darren_score",  label:"Darren's exact score",            type:"number",     q:"What does Darren shoot for 18 holes? Closest guess wins (tie: lower guess wins)." },
-  { id:"darren_high",   label:"Darren's worst hole",             type:"number",     q:"What is the highest score Darren makes on any single hole?" },
-  { id:"darren_low",    label:"Darren's best hole",              type:"number",     q:"What is the lowest score Darren makes on any single hole?" },
-  { id:"darren_3putt",  label:"Darren 3-putts hole 1",          type:"yes_no",     q:"Does Darren take 3 or more putts on the very first hole?" }
-];
-
-var TIERS = [
-  {id:1,label:"Tier 1 \u2014 Favorites",lc:"tl1",chip:"ch1",golfers:[
-    {n:"Scottie Scheffler",o:"+410"},{n:"Jon Rahm",o:"+850"},
-    {n:"Rory McIlroy",o:"+1025"},{n:"Bryson DeChambeau",o:"+1100"}]},
-  {id:2,label:"Tier 2 \u2014 Contenders",lc:"tl2",chip:"ch2",golfers:[
-    {n:"Ludvig Aberg",o:"+1750"},{n:"Xander Schauffele",o:"+1850"},
-    {n:"Cameron Young",o:"+2400"},{n:"Tommy Fleetwood",o:"+2500"},
-    {n:"Matt Fitzpatrick",o:"+2600"},{n:"Collin Morikawa",o:"+3100"}]},
-  {id:3,label:"Tier 3 \u2014 Mid-range",lc:"tl3",chip:"ch3",golfers:[
-    {n:"Justin Rose",o:"+3600"},{n:"Jordan Spieth",o:"+3800"},
-    {n:"Brooks Koepka",o:"+3800"},{n:"Hideki Matsuyama",o:"+3900"},
-    {n:"Robert MacIntyre",o:"+4000"},{n:"Russell Henley",o:"+4200"},
-    {n:"Chris Gotterup",o:"+4300"},{n:"Patrick Reed",o:"+4500"},
-    {n:"Viktor Hovland",o:"+4600"},{n:"Si Woo Kim",o:"+4700"},
-    {n:"Min Woo Lee",o:"+5400"},{n:"Justin Thomas",o:"+5500"},
-    {n:"Patrick Cantlay",o:"+5700"},{n:"Adam Scott",o:"+6200"},
-    {n:"Akshay Bhatia",o:"+6600"},{n:"Sepp Straka",o:"+6700"},
-    {n:"Jason Day",o:"+6900"},{n:"Jake Knapp",o:"+6900"},
-    {n:"Tyrrell Hatton",o:"+6900"},{n:"Shane Lowry",o:"+7000"}]},
-  {id:4,label:"Tier 4 \u2014 Longshots",lc:"tl4",chip:"ch4",golfers:[
-    {n:"Sam Burns",o:"+7200"},{n:"Corey Conners",o:"+8200"},
-    {n:"Nicolai Hojgaard",o:"+8400"},{n:"Kurt Kitayama",o:"+8800"},
-    {n:"J.J. Spaun",o:"+8800"},{n:"Jacob Bridgeman",o:"+9400"},
-    {n:"Maverick McNealy",o:"+9800"},{n:"Cameron Smith",o:"+10000"},
-    {n:"Harris English",o:"+10500"},{n:"Gary Woodland",o:"+11000"},
-    {n:"Ben Griffin",o:"+11000"},{n:"Daniel Berger",o:"+11000"},
-    {n:"Max Homa",o:"+11500"},{n:"Sung-Jae Im",o:"+12000"},
-    {n:"Rasmus Hojgaard",o:"+13000"},{n:"Keegan Bradley",o:"+14000"},
-    {n:"Harry Hall",o:"+16000"},{n:"Marco Penge",o:"+16000"},
-    {n:"Alex Noren",o:"+16500"},{n:"Ryan Gerard",o:"+17000"},
-    {n:"Nick Taylor",o:"+19500"},{n:"Aaron Rai",o:"+19500"},
-    {n:"Brian Harman",o:"+20000"},{n:"Sam Stevens",o:"+21000"},
-    {n:"Sergio Garcia",o:"+22500"},{n:"Ryan Fox",o:"+22500"},
-    {n:"Wyndham Clark",o:"+22500"},{n:"Max Greyserman",o:"+23000"},
-    {n:"Dustin Johnson",o:"+24000"}]},
-  {id:5,label:"Tier 5 \u2014 Deep Sleepers",lc:"tl5",chip:"ch5",golfers:[
-    {n:"Casey Jarvis",o:"+25000"},{n:"Carlos Ortiz",o:"+26000"},
-    {n:"Haotong Li",o:"+28000"},{n:"Tom McKibbin",o:"+28000"},
-    {n:"Nico Echavarria",o:"+31000"},{n:"Kristoffer Reitan",o:"+31000"},
-    {n:"Rasmus Neergaard-Petersen",o:"+32500"},{n:"John Keefer",o:"+34000"},
-    {n:"Michael Kim",o:"+35000"},{n:"Andrew Novak",o:"+40000"},
-    {n:"Aldrich Potgieter",o:"+41000"},{n:"Michael Brennan",o:"+43000"},
-    {n:"Sami Valimaki",o:"+52500"},{n:"Davis Riley",o:"+60000"},
-    {n:"Charl Schwartzel",o:"+60000"},{n:"Bubba Watson",o:"+60000"},
-    {n:"Zach Johnson",o:"+60000"}]},
-  {id:6,label:"Tier 6 \u2014 Legends",lc:"tl6",chip:"ch6",golfers:[
-    {n:"Brian Campbell",o:"+250000"},{n:"Ethan Fang",o:"+250000"},
-    {n:"Danny Willett",o:"+250000"},{n:"Vijay Singh",o:"+450000"},
-    {n:"Mason Howell",o:"+450000"},{n:"Angel Cabrera",o:"+450000"},
-    {n:"Brandon Holtz",o:"+500000"},{n:"Mike Weir",o:"+500000"},
-    {n:"Fred Couples",o:"+500000"},{n:"Jose Maria Olazabal",o:"+500000"}]}
-];
-
-var NAME_ALIASES={
-  "ludvig aberg":["ludvig aberg","ludvig \xe5berg"],
-  "nicolai hojgaard":["nicolai hojgaard","nicolai h\xf8jgaard"],
-  "rasmus hojgaard":["rasmus hojgaard","rasmus h\xf8jgaard"]
-};
-
-// ── STATE ────────────────────────────────────────────────────────────────────
-var fbUrl="",poolKey="",poolData=null,me=null,myPicks={},myPropPicks={},setupList=[];
-var espnScores=null,lbTimer=null,tierCollapsed={};
-
-// ── UTILS ────────────────────────────────────────────────────────────────────
-function show(id){document.querySelectorAll(".page").forEach(function(p){p.classList.remove("on");});document.getElementById(id).classList.add("on");window.scrollTo(0,0);}
-function getParam(k){return new URLSearchParams(window.location.search).get(k);}
-function shareURL(){var u=new URL(window.location.href);u.searchParams.set("fb",fbUrl);u.searchParams.set("pool",poolKey);return u.toString();}
-function mastersLocked(){return new Date()>MASTERS_LOCK;}
-function propsLocked(){return new Date()>PROPS_LOCK;}
-function normName(s){return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9 ]/g,"").replace(/\s+/g," ").trim();}
-function fmtTime(ts){return new Date(ts).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});}
-function isCommissioner(){return poolData&&poolData.config&&me&&poolData.config.by===me;}
-function perPropPot(){
-  var n=(poolData&&poolData.config&&poolData.config.players&&poolData.config.players.length)||0;
-  var pb=(poolData&&poolData.config&&poolData.config.prop_buyin)||10;
-  return Math.floor((n*pb)/NUM_PROPS);
-}
-
-// ── FIREBASE ─────────────────────────────────────────────────────────────────
-function fbBase(){return fbUrl.replace(/\/$/,"");}
-function fbFetch(path,method,body){
-  var opts={method:method||"GET",headers:{"Content-Type":"application/json"}};
-  if(body!==undefined)opts.body=JSON.stringify(body);
-  return fetch(fbBase()+path+".json",opts).then(function(r){
-    if(!r.ok)throw new Error("Firebase "+r.status+" on "+path);
-    return r.json();
-  });
-}
-function fbGet(p){return fbFetch(p,"GET");}
-function fbPut(p,d){return fbFetch(p,"PUT",d);}
-function fbPatch(p,d){return fbFetch(p,"PATCH",d);}
-function fbPost(p,d){return fbFetch(p,"POST",d);}
-
-// ── SETUP ────────────────────────────────────────────────────────────────────
-function doSetup(){
-  var raw=document.getElementById("fb-input").value.trim().replace(/\/$/,"");
-  if(raw.indexOf("firebaseio.com")===-1){alert("URL should end with firebaseio.com");return;}
-  var btn=document.getElementById("setup-btn");
-  btn.innerHTML='<div class="spin"></div> Checking...';btn.disabled=true;
-  fbUrl=raw;
-  fetch(fbBase()+"/ping.json").then(function(r){
-    if(r.status===401||r.status===403)throw new Error("Permission denied. Choose \"Start in test mode\".");
-    localStorage.setItem("fbUrl",fbUrl);show("pg-create");
-  }).catch(function(e){
-    fbUrl="";btn.innerHTML="Connect &amp; continue &rarr;";btn.disabled=false;
-    alert("Could not connect.\n\n"+e.message+"\n\nCheck:\n1. URL from Realtime Database page\n2. \"Start in test mode\" was selected");
-  });
-}
-
-// ── CREATE ───────────────────────────────────────────────────────────────────
-function addPlayer(){
-  var inp=document.getElementById("in-player"),name=inp.value.trim();
-  if(!name||setupList.indexOf(name)!==-1){inp.value="";return;}
-  setupList.push(name);inp.value="";renderPlayerTags();refreshPot();
-}
-function removePlayer(i){setupList.splice(i,1);renderPlayerTags();refreshPot();}
-function renderPlayerTags(){
-  document.getElementById("player-tags").innerHTML=setupList.map(function(p,i){
-    return "<span class='tag'>"+p+"<span class='tag-x' onclick='removePlayer("+i+")'>&#x2715;</span></span>";
-  }).join("");
-}
-function refreshPot(){
-  var b=parseInt(document.getElementById("in-buyin").value)||0;
-  var pb=parseInt(document.getElementById("in-prop-buyin").value)||0;
-  var n=setupList.length,t=b*n,pt=pb*n;
-  var perProp=n>0?Math.floor(pt/NUM_PROPS):0;
-  document.getElementById("per-prop-display").textContent=perProp;
-  var card=document.getElementById("pot-preview");
-  if(n>=2){
-    card.style.display="block";
-    document.getElementById("pot-total").textContent="$"+t;
-    document.getElementById("prop-total").textContent="$"+pt;
-    document.getElementById("per-prop-pot").textContent="$"+perProp;
-  } else {card.style.display="none";}
-}
-function createPool(){
-  var admin=document.getElementById("in-admin").value.trim();
-  var buyin=parseInt(document.getElementById("in-buyin").value)||20;
-  var propBuyin=parseInt(document.getElementById("in-prop-buyin").value)||10;
-  if(!admin){alert("Enter your name first");return;}
-  if(setupList.length<2){alert("Add at least 2 players");return;}
-  var btn=document.getElementById("create-btn");
-  btn.innerHTML='<div class="spin"></div> Creating...';btn.disabled=true;
-  poolKey="pool_"+Date.now();
-  // Make sure the commissioner is in the players list
-  if(setupList.indexOf(admin)===-1) setupList.unshift(admin);
-  poolData={config:{players:setupList,buyin:buyin,prop_buyin:propBuyin,by:admin},picks:{},prop_picks:{},prop_results:null,trash:{}};
-  fbPut("/"+poolKey,poolData).then(function(){
-    var u=new URL(window.location.href);
-    u.searchParams.set("fb",fbUrl);u.searchParams.set("pool",poolKey);
-    window.history.replaceState({},"",u.toString());
-    me=admin;
-    myPicks={t1:null,t2:null,t3:null,t4:null,t5:null,t6:null};
-    myPropPicks={};
-    renderPickPage();show("pg-pick");
-  }).catch(function(e){
-    btn.innerHTML="Create pool &amp; get link &rarr;";btn.disabled=false;
-    alert("Could not save.\n\nMake sure you chose \"Start in test mode\".\n\n"+e.message);
-  });
-}
-
-// ── JOIN ─────────────────────────────────────────────────────────────────────
-function renderJoinPage(){
-  var cfg=poolData.config,picks=poolData.picks||{},pp=poolData.prop_picks||{};
-  var n=cfg.players.length,t=n*cfg.buyin;
-  document.getElementById("name-list").innerHTML=cfg.players.map(function(p){
-    var hasMasters=TIERS.every(function(t){return (picks[p]||{})["t"+t.id];});
-    var hasProps=PROPS.every(function(pr){return (pp[p]||{})[pr.id]!=null;});
-    var esc=p.replace(/\\/g,"\\\\").replace(/'/g,"\\'");
-    var mastersCls=hasMasters?"primary":"secondary";
-    var propsCls=hasProps?"btn-gold":"secondary";
-    var mastersLabel=hasMasters?"&#9971; Masters &#10003;":"&#9971; Masters picks";
-    var propsLabel=hasProps?"&#127922; Props &#10003;":"&#127922; Prop bets";
-    return "<div style='margin-bottom:10px;'>"
-      +"<div style='font-size:15px;font-weight:700;padding:0 2px 7px;'>"+p+"</div>"
-      +"<div style='display:flex;gap:6px;'>"
-      +"<button class='btn "+mastersCls+"' style='flex:1;font-size:13px;padding:11px 10px;' onclick='startPicking(\""+esc+"\")'>"+mastersLabel+"</button>"
-      +"<button class='btn "+propsCls+"' style='flex:1;font-size:13px;padding:11px 10px;' onclick='startPropPicking(\""+esc+"\")'>"+propsLabel+"</button>"
-      +"</div></div>";
-  }).join("");
-  document.getElementById("pot-join").innerHTML=
-    "<div class='pot-box'><div class='pot-val'>$"+t+"</div><div class='pot-lbl'>Masters pot</div></div>"
-    +"<div class='pot-box'><div class='pot-val'>$"+Math.round(t*.7)+"</div><div class='pot-lbl'>1st place</div></div>"
-    +"<div class='pot-box'><div class='pot-val'>$"+(n*(cfg.prop_buyin||10))+"</div><div class='pot-lbl'>Props pot</div></div>";
-}
-function showJoin(){
-  clearInterval(lbTimer);
-  fbGet("/"+poolKey).then(function(d){if(d&&d.config)poolData=d;}).catch(function(){})
-    .then(function(){renderJoinPage();show("pg-join");});
-}
-
-// ── MASTERS PICKS ────────────────────────────────────────────────────────────
-function startPicking(name){
-  var storedMe=localStorage.getItem("darizona_me_"+poolKey);
-  if(storedMe&&storedMe!==name&&mastersLocked()){
-    // After lock, show read-only view for other players
-    me=name; renderReadOnlyPicks(name); return;
-  }
-  me=name;
-  localStorage.setItem("darizona_me_"+poolKey,name);
-  var existing=(poolData.picks||{})[name]||{};
-  myPicks={};TIERS.forEach(function(t){myPicks["t"+t.id]=existing["t"+t.id]||null;});
-  var exProp=(poolData.prop_picks||{})[name]||{};
-  myPropPicks={};PROPS.forEach(function(p){myPropPicks[p.id]=exProp[p.id]!=null?exProp[p.id]:null;});
-  renderPickPage();show("pg-pick");
-}
-function startPropPicking(name){
-  var storedMe=localStorage.getItem("darizona_me_"+poolKey);
-  if(storedMe&&storedMe!==name&&propsLocked()){
-    alert("Picks are locked. You can only view your own picks."); return;
-  }
-  me=name;
-  localStorage.setItem("darizona_me_"+poolKey,name);
-  var existing=(poolData.picks||{})[name]||{};
-  myPicks={};TIERS.forEach(function(t){myPicks["t"+t.id]=existing["t"+t.id]||null;});
-  var exProp=(poolData.prop_picks||{})[name]||{};
-  myPropPicks={};PROPS.forEach(function(p){myPropPicks[p.id]=exProp[p.id]!=null?exProp[p.id]:null;});
-  renderPropPickScreen();show("pg-prop-picks");
-}
-function renderReadOnlyPicks(name){
-  var existing=(poolData.picks||{})[name]||{};
-  var chips=["ch1","ch2","ch3","ch4","ch5","ch6"];
-  var allDone=TIERS.every(function(t){return existing["t"+t.id];});
-  var html="<div style='padding:14px 0;'>";
-  html+="<div style='font-size:14px;color:var(--muted);margin-bottom:16px;'>&#128274; Picks locked &mdash; viewing "+name+"'s selections</div>";
-  TIERS.forEach(function(tier,i){
-    var pick=existing["t"+tier.id];
-    html+="<div style='display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--sand2);'>";
-    html+="<span class='tier-label "+tier.lc+"' style='pointer-events:none;'>"+tier.label+"</span>";
-    html+=pick?"<span class='chip "+chips[i]+"'>"+pick+"</span>":"<span style='color:#bbb;'>No pick</span>";
-    html+="</div>";
-  });
-  html+="</div>";
-  // Show in a card overlay on the pick page
-  document.getElementById("tier-list").innerHTML=html;
-  document.getElementById("pick-heading").textContent=name+"'s picks (read only)";
-  document.getElementById("pick-status").textContent="";
-  document.getElementById("pick-lock-banner").style.display="none";
-  document.getElementById("pick-bar").style.width="100%";
-  document.getElementById("save-btn").style.display="none";
-  document.getElementById("pick-search").style.display="none";
-  show("pg-pick");
-}
-
-function renderPickPage(){
-  document.getElementById("pick-heading").textContent=me+"'s picks";
-  document.getElementById("pick-search").style.display="";
-  document.getElementById("save-btn").style.display="";
-  var locked=mastersLocked();
-  document.getElementById("pick-lock-banner").style.display=locked?"flex":"none";
-  document.getElementById("save-btn").disabled=locked;
-  var done=TIERS.filter(function(t){return myPicks["t"+t.id];}).length;
-  document.getElementById("pick-bar").style.width=Math.round(done/6*100)+"%";
-  document.getElementById("pick-status").textContent=done+" of 6 tiers picked"+(done===6?" \u2014 all done! \u2713":"");
-  renderTiers();
-}
-function renderTiers(){
-  var q=document.getElementById("pick-search").value.toLowerCase();
-  var locked=mastersLocked();
-  var html="";
-  TIERS.forEach(function(tier){
-    var myPick=myPicks["t"+tier.id];
-    var filtered=tier.golfers.filter(function(g){return !q||g.n.toLowerCase().indexOf(q)!==-1;});
-    if(!filtered.length)return;
-    var collapsed=tierCollapsed[tier.id]&&!q;
-    html+="<div class='tier-block'>";
-    html+="<div class='tier-head-row' onclick='toggleTier("+tier.id+")'>";
-    html+="<span class='tier-label "+tier.lc+"'>"+tier.label+"</span>";
-    if(myPick)html+="<span style='font-size:12px;color:var(--green);margin-left:8px;font-weight:500;'>&#10003; "+myPick+"</span>";
-    html+="<span class='tier-caret"+(collapsed?"":" open")+"'>&#9650;</span></div>";
-    if(!collapsed){
-      html+="<div class='gg'>";
-      filtered.forEach(function(gf){
-        var isSel=myPick===gf.n;
-        var esc=gf.n.replace(/\\/g,"\\\\").replace(/'/g,"\\'");
-        html+="<button class='gcard"+(isSel?" picked":"")+"'"+(locked?" disabled":"")+
-          " onclick=\"togglePick("+tier.id+",'"+esc+"')\">"+
-          "<div class='gname'>"+gf.n+"</div><div class='godds'>"+gf.o+"</div></button>";
-      });
-      html+="</div>";
-    }
-    html+="</div>";
-  });
-  document.getElementById("tier-list").innerHTML=html;
-}
-function toggleTier(id){tierCollapsed[id]=!tierCollapsed[id];renderTiers();}
-function togglePick(tid,name){
-  if(mastersLocked())return;
-  var key="t"+tid;myPicks[key]=myPicks[key]===name?null:name;renderPickPage();
-}
-function savePicks(){
-  if(mastersLocked()){alert("Masters picks are locked!");return;}
-  var btn=document.getElementById("save-btn");
-  btn.innerHTML='<div class="spin"></div> Saving...';btn.disabled=true;
-  if(!poolData.picks)poolData.picks={};
-  var toSave={};TIERS.forEach(function(t){toSave["t"+t.id]=myPicks["t"+t.id];});
-  poolData.picks[me]=toSave;
-  fbPatch("/"+poolKey+"/picks",{[me]:toSave}).then(function(){
-    btn.innerHTML="Saved! &#10003;";btn.style.background="var(--green2)";
-    setTimeout(function(){btn.innerHTML="Save picks &#10003;";btn.style.background="";btn.disabled=false;},2500);
-  }).catch(function(e){
-    btn.innerHTML="Save picks &#10003;";btn.disabled=false;
-    alert("Save failed.\n\n"+e.message);
-  });
-}
-
-// ── PROP PICKS ───────────────────────────────────────────────────────────────
-function showPropPicks(){
-  renderPropPickScreen();show("pg-prop-picks");
-}
-function renderPropPickScreen(){
-  var locked=propsLocked();
-  document.getElementById("prop-lock-banner").style.display=locked?"flex":"none";
-  document.getElementById("prop-save-btn").disabled=locked;
-  var players=poolData.config.players;
-  var html="";
-  PROPS.forEach(function(prop){
-    var myVal=myPropPicks[prop.id];
-    html+="<div class='prop-card'>";
-    html+="<div class='prop-header'>";
-    html+="<div><div class='prop-label'>"+prop.label+"</div><div class='prop-q'>"+prop.q+"</div></div>";
-    html+="<div class='prop-pot'>$"+perPropPot()+" pot</div>";
-    html+="</div>";
-    html+="<div class='prop-body'>";
-    if(prop.type==="player"){
-      html+="<select id='pp-"+prop.id+"' "+(locked?"disabled":"")+" style='background:"+(myVal?"#E8F3EC":"var(--sand)")+";border-color:"+(myVal?"var(--green2)":"var(--border)")+"'>";
-      html+="<option value=''>-- Pick a player --</option>";
-      players.forEach(function(p){html+="<option value='"+p.replace(/"/g,"&quot;")+"'"+(myVal===p?" selected":"")+">"+p+"</option>";});
-      html+="</select>";
-    } else if(prop.type==="number"){
-      html+="<input type='number' id='pp-"+prop.id+"' placeholder='Enter your guess...' value='"+(myVal!=null?myVal:"")+"' min='1' max='150' "+(locked?"disabled":"")+" style='background:"+(myVal!=null?"#E8F3EC":"var(--sand)")+";border-color:"+(myVal!=null?"var(--green2)":"var(--border)")+"' />";
-    } else if(prop.type==="yes_no"){
-      html+="<div style='display:flex;gap:8px;'>";
-      html+="<button class='btn "+(myVal==="yes"?"primary":"secondary")+" full' id='pp-"+prop.id+"-yes' onclick='setPropPick(\""+prop.id+"\",\"yes\")' "+(locked?"disabled":"")+" style='flex:1;'>&#128077; Yes</button>";
-      html+="<button class='btn "+(myVal==="no"?"btn-gold":"secondary")+" full' id='pp-"+prop.id+"-no' onclick='setPropPick(\""+prop.id+"\",\"no\")' "+(locked?"disabled":"")+" style='flex:1;'>&#128078; No</button>";
-      html+="</div>";
-    }
-    html+="</div></div>";
-  });
-  document.getElementById("prop-pick-list").innerHTML=html;
-}
-function syncPropPicksFromDOM(){
-  // Read current DOM values into myPropPicks before any re-render
-  PROPS.forEach(function(prop){
-    if(prop.type==="player"||prop.type==="number"){
-      var el=document.getElementById("pp-"+prop.id);
-      if(el&&el.value!==""){
-        myPropPicks[prop.id]=prop.type==="number"?parseInt(el.value):el.value;
-      }
-    }
-  });
-}
-function setPropPick(propId,val){
-  if(propsLocked())return;
-  syncPropPicksFromDOM(); // save all current inputs before re-render
-  myPropPicks[propId]=myPropPicks[propId]===val?null:val;
-  renderPropPickScreen();
-}
-function savePropPicks(){
-  if(propsLocked()){alert("Prop picks are locked!");return;}
-  syncPropPicksFromDOM(); // sync all field values before saving
-  PROPS.forEach(function(prop){
-    if(prop.type==="player"||prop.type==="number"){
-      var el=document.getElementById("pp-"+prop.id);
-      if(el){
-        var v=prop.type==="number"?parseInt(el.value):el.value;
-        myPropPicks[prop.id]=(el.value!==""&&el.value!=null)?v:null;
-      }
-    }
-  });
-  var btn=document.getElementById("prop-save-btn");
-  btn.innerHTML='<div class="spin"></div> Saving...';btn.disabled=true;
-  if(!poolData.prop_picks)poolData.prop_picks={};
-  poolData.prop_picks[me]={...myPropPicks};
-  fbPatch("/"+poolKey+"/prop_picks",{[me]:myPropPicks}).then(function(){
-    btn.innerHTML="Saved! &#10003;";btn.style.background="var(--green2)";
-    setTimeout(function(){btn.innerHTML="Save prop picks &#10003;";btn.style.background="";btn.disabled=false;},2500);
-  }).catch(function(e){
-    btn.innerHTML="Save prop picks &#10003;";btn.disabled=false;
-    alert("Save failed.\n\n"+e.message);
-  });
-}
-
-// ── ESPN ─────────────────────────────────────────────────────────────────────
-function fetchESPN(){
-  return fetch("https://site.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard")
-    .then(function(r){if(!r.ok)throw new Error("ESPN "+r.status);return r.json();})
-    .then(function(data){
-      var events=data.events||[],ev=null;
-      for(var i=0;i<events.length;i++){if((events[i].name||"").toLowerCase().indexOf("masters")!==-1){ev=events[i];break;}}
-      if(!ev)ev=events[0];
-      if(!ev)return{status:"notfound",scores:{},leader:null};
-      var rawStatus=(ev.status&&ev.status.type&&ev.status.type.name)||"";
-      var status="pre";
-      if(rawStatus==="STATUS_IN_PROGRESS"||rawStatus==="in"||rawStatus.indexOf("PROGRESS")!==-1)status="in";
-      else if(rawStatus==="STATUS_FINAL"||rawStatus==="STATUS_COMPLETE"||rawStatus.indexOf("FINAL")!==-1||rawStatus.indexOf("COMPLETE")!==-1)status="post";
-      var competitors=(ev.competitions&&ev.competitions[0]&&ev.competitions[0].competitors)||[];
-      var scores={},leader=null;
-      competitors.forEach(function(c){
-        var name=(c.athlete&&c.athlete.displayName)||"";
-        var pos=(c.status&&c.status.position&&c.status.position.displayName)||"--";
-        var score=(c.score&&c.score.displayValue)||"E";
-        var cStatus=(c.status&&c.status.type&&c.status.type.name)||"active";
-        var isCut=cStatus==="STATUS_CUT"||cStatus==="cut"||pos==="CUT"||cStatus.indexOf("CUT")!==-1||cStatus.indexOf("WD")!==-1||cStatus.indexOf("DQ")!==-1;
-        var thru=(c.status&&c.status.displayValue)||"--";
-        var ls=c.linescores||[],rounds=["--","--","--","--"];
-        for(var r=0;r<Math.min(ls.length,4);r++)rounds[r]=(ls[r].displayValue||ls[r].value||"--").toString();
-        var posNum=999;
-        if(!isCut&&pos!=="--"){var n=parseInt(pos.replace(/[^0-9]/g,""));if(!isNaN(n))posNum=n;}
-        if(isCut)posNum=CUT_PENALTY;
-        var entry={pos:pos,score:score,status:isCut?"cut":"active",posNum:posNum,rawName:name,thru:thru,r1:rounds[0],r2:rounds[1],r3:rounds[2],r4:rounds[3]};
-        scores[normName(name)]=entry;
-        if(!isCut&&(!leader||posNum<leader.posNum))leader=entry;
-      });
-      return{status:status,scores:scores,leader:leader,eventName:ev.name};
-    });
-}
-function lookupScore(name){
-  if(!espnScores)return null;
-  var norm=normName(name);
-  if(espnScores[norm])return espnScores[norm];
-  var aliases=NAME_ALIASES[norm];
-  if(aliases){for(var i=0;i<aliases.length;i++){if(espnScores[normName(aliases[i])])return espnScores[normName(aliases[i])];}}
-  for(var k in espnScores){if(k.indexOf(norm)!==-1||norm.indexOf(k)!==-1)return espnScores[k];}
-  return null;
-}
-
-// ── LEADERBOARD ──────────────────────────────────────────────────────────────
-function showLeaderboard(){
-  show("pg-leaderboard");
-  var tb=document.getElementById("test-btn");
-  if(tb) tb.style.display=mastersLocked()?"none":"inline-flex";
-  loadLeaderboard(false);
-  clearInterval(lbTimer);lbTimer=setInterval(function(){loadLeaderboard(false);},90000);
-}
-function loadLeaderboard(manual){
-  var btn=document.getElementById("refresh-btn");
-  if(btn){btn.innerHTML='<div class="spin spin-dark"></div>';btn.disabled=true;}
-  var fbP=fbGet("/"+poolKey).then(function(d){if(d&&d.config)poolData=d;}).catch(function(){});
-  var espnP=fetchESPN().catch(function(){return{status:"error",scores:{},leader:null};});
-  Promise.all([fbP,espnP]).then(function(res){
-    var er=res[1];
-    if(er&&er.scores)espnScores=er.scores;
-    if(btn){btn.innerHTML="Refresh";btn.disabled=false;}
-    document.getElementById("last-updated").textContent="Updated "+fmtTime(Date.now());
-    renderLeaderboard(er);
-  });
-}
-function scoreClass(s){
-  if(!s||s==="--"||s==="E")return"score-even";
-  if(s.charAt(0)==="-")return"score-under";
-  if(s.charAt(0)==="+")return"score-over";
-  return"score-even";
-}
-function renderLeaderboard(er){
-  var cfg=poolData.config,picks=poolData.picks||{};
-  var tStatus=er?er.status:"error",leader=er?er.leader:null;
-  var n=cfg.players.length,pot=n*cfg.buyin;
-  var prize1=Math.round(pot*.7),prize2=Math.round(pot*.3);
-  var live=tStatus==="in"||tStatus==="post";
-  var stHtml="";
-  if(tStatus==="in")stHtml='<span class="live-dot"></span><strong style="color:var(--green)">LIVE</strong> &mdash; Masters Tournament';
-  else if(tStatus==="post")stHtml='<span class="badge badge-gray">Final</span>&nbsp;Masters Tournament';
-  else if(tStatus==="pre")stHtml='<span class="badge badge-gold">&#9201; Tee-off April 9</span>&nbsp;Scoring begins Thursday';
-  else stHtml='<span class="badge badge-gray">Scores unavailable</span>&nbsp;Use &#127381; Test to preview';
-  document.getElementById("lb-status").innerHTML=stHtml;
-  var lbHtml="";
-  if(live&&leader){
-    lbHtml='<div class="leader-banner"><div class="leader-left"><div class="leader-label">Masters leader</div><div class="leader-name">'+leader.rawName+'</div><div class="leader-thru">'+(leader.thru==="F"?"Final":leader.thru!=="--"?"Thru "+leader.thru:"")+'</div></div><div class="leader-score">'+leader.score+'</div></div>';
-  }
-  document.getElementById("leader-banner").innerHTML=lbHtml;
-  var poolScores=cfg.players.map(function(player){
-    var pp=picks[player]||{},total=0,hasPicks=false,details=[];
-    TIERS.forEach(function(tier){
-      var pick=pp["t"+tier.id];
-      if(!pick){details.push({name:null,tier:tier.id});return;}
-      hasPicks=true;var s=lookupScore(pick);total+=s?s.posNum:70; // 70=last place fallback for not-yet-found players
-      details.push({name:pick,tier:tier.id,pos:s?s.pos:"–",score:s?s.score:"–",thru:s?s.thru:"–",r1:s?s.r1:"–",r2:s?s.r2:"–",r3:s?s.r3:"–",r4:s?s.r4:"–",status:s?s.status:"tbd",posNum:s?s.posNum:70});
-    });
-    return{player:player,total:hasPicks?total:null,details:details,hasPicks:hasPicks};
-  });
-  poolScores.sort(function(a,b){if(a.total===null&&b.total===null)return 0;if(a.total===null)return 1;if(b.total===null)return -1;return a.total-b.total;});
-  var rankCls=["gold-rank","silver-rank","bronze-rank"];
-  var html="";
-  if(!poolScores.some(function(p){return p.hasPicks;})){
-    html='<div class="card" style="text-align:center;padding:28px;color:var(--muted);">&#127939; No picks yet<br><span style="font-size:12px;margin-top:4px;display:block;">Share the link so everyone can pick</span></div>';
-  } else {
-    poolScores.forEach(function(ps,i){
-      var rank=ps.hasPicks?i+1:"-",rCls=i<3?rankCls[i]:"";
-      var prizeHtml="";
-      if(live&&ps.hasPicks){
-        if(i===0)prizeHtml='<div class="pool-prize prize-1">&#127942; Proj. $'+prize1+'</div>';
-        else if(i===1)prizeHtml='<div class="pool-prize prize-2">&#129352; Proj. $'+prize2+'</div>';
-        else if(i===2)prizeHtml='<div class="pool-prize prize-3">&#129353; On the bubble</div>';
-      }
-      var scoreHtml=!ps.hasPicks?'<div class="pool-total pending">No picks</div>':!live?'<div class="pool-total pending">Pending</div>':'<div class="pool-total">'+ps.total+'</div>';
-      html+='<div class="pool-card"><div class="pool-header"><span class="lb-rank '+rCls+'">'+rank+'</span><div class="pool-name">'+ps.player+'</div><div class="pool-score-wrap">'+scoreHtml+prizeHtml+'</div></div>';
-      html+='<div class="gt-wrap"><table class="gt"><thead><tr><th>Golfer</th><th>POS</th><th>TOT</th><th>THR</th><th>R1</th><th>R2</th><th>R3</th><th>R4</th></tr></thead><tbody>';
-      ps.details.forEach(function(det){
-        if(!det.name){html+='<tr><td colspan="8" style="color:#ccc;font-style:italic;padding-left:15px;">T'+det.tier+': no pick</td></tr>';return;}
-        var isCut=det.status==="cut",cutCls=isCut?" gt-cut":"",cutBadge=isCut?'<span class="gt-cut-badge">CUT</span>':"";
-        var thruCls=(det.thru!=="F"&&det.thru!=="--"&&!isCut)?" thru-live":"";
-        html+='<tr class="'+cutCls.trim()+'"><td>'+det.name+cutBadge+'</td><td class="pos-num">'+(live?det.pos:"--")+'</td><td class="'+scoreClass(live?det.score:null)+'">'+(live?det.score:"--")+'</td><td class="'+thruCls.trim()+'">'+(live?det.thru:"--")+'</td><td>'+(live?det.r1:"--")+'</td><td>'+(live?det.r2:"--")+'</td><td>'+(live?det.r3:"--")+'</td><td>'+(live?det.r4:"--")+'</td></tr>';
-      });
-      html+='</tbody></table></div></div>';
-    });
-  }
-  html+='<p style="font-size:12px;color:var(--muted);margin-top:8px;line-height:1.6;">Pool score = sum of finishing positions. Missed cut = +'+CUT_PENALTY+'. Auto-refreshes every 90s.</p>';
-  document.getElementById("lb-content").innerHTML=html;
-}
-function loadTestScores(){
-  var names=["Scottie Scheffler","Jon Rahm","Rory McIlroy","Bryson DeChambeau","Ludvig Aberg","Xander Schauffele","Cameron Young","Tommy Fleetwood","Matt Fitzpatrick","Collin Morikawa","Justin Rose","Jordan Spieth","Brooks Koepka","Hideki Matsuyama","Robert MacIntyre","Russell Henley","Chris Gotterup","Patrick Reed","Viktor Hovland","Si Woo Kim","Min Woo Lee","Justin Thomas","Patrick Cantlay","Adam Scott","Akshay Bhatia","Sepp Straka","Jason Day","Jake Knapp","Tyrrell Hatton","Shane Lowry","Sam Burns","Corey Conners","Nicolai Hojgaard","Kurt Kitayama","J.J. Spaun","Jacob Bridgeman","Maverick McNealy","Cameron Smith","Harris English","Gary Woodland","Ben Griffin","Daniel Berger","Max Homa","Sung-Jae Im","Rasmus Hojgaard","Keegan Bradley","Harry Hall","Marco Penge","Alex Noren","Ryan Gerard","Casey Jarvis","Carlos Ortiz","Dustin Johnson","Bubba Watson","Fred Couples","Vijay Singh","Jose Maria Olazabal","Mike Weir","Danny Willett","Zach Johnson","Charl Schwartzel","Davis Riley","Angel Cabrera","Brian Campbell","Ethan Fang","Mason Howell","Brandon Holtz","Aldrich Potgieter","Nick Taylor","Aaron Rai","Brian Harman","Sam Stevens","Sergio Garcia","Ryan Fox","Wyndham Clark","Max Greyserman"];
-  var rs=[[66,68,67,69],[68,67,70,68],[69,67,69,70],[70,68,69,71],[67,70,69,71],[68,70,70,70],[69,70,70,70],[70,69,70,70],[70,70,69,70],[71,69,70,71],[70,70,71,70],[70,71,69,71],[71,70,70,71],[71,71,70,70],[72,70,70,70],[71,72,70,70],[72,71,70,70],[71,72,71,70],[72,71,71,70],[73,71,70,70],[72,72,71,70],[73,72,70,70],[74,71,71,70],[73,73,70,71],[74,72,71,71],[75,72,71,71],[74,74,71,71],[75,73,72,71],[76,73,72,72],[77,73,73,72],[76,75,73,72],[77,76,74,73],[76,77,74,73],[77,77,75,73],[78,77,76,74],[79,77,77,74],[78,79,77,75],[79,79,78,75],[80,79,78,76],[80,80,79,76],[81,80,79,77],[81,81,80,77],[82,81,80,78],[82,82,81,78],[83,82,81,79],[83,83,82,79],[84,83,82,80],[85,83,83,80],[84,85,83,81],[85,85,84,81],[80,80,0,0],[81,80,0,0],[79,82,0,0],[80,82,0,0],[81,83,0,0],[82,83,0,0],[83,84,0,0],[84,84,0,0],[83,85,0,0],[84,85,0,0],[80,81,0,0],[81,81,0,0],[82,82,0,0],[83,82,0,0],[84,83,0,0],[85,83,0,0],[86,84,0,0],[87,84,0,0],[85,86,0,0],[86,86,0,0],[87,87,0,0],[88,87,0,0],[89,88,0,0],[90,88,0,0],[91,89,0,0],[92,89,0,0]];
-  var cutLine=50,par=72,ts={};
-  names.forEach(function(name,i){
-    var isCut=i>=cutLine,r=rs[i]||[72,72,0,0];
-    var r1=r[0],r2=r[1],r3=r[2],r4=r[3];
-    var played=isCut?2:(r4>0?4:r3>0?3:2);
-    var total=r1+r2+(r3>0?r3:0)+(r4>0?r4:0);
-    var vp=total-(par*played);
-    var scoreStr=vp<0?String(vp):(vp===0?"E":"+"+vp);
-    ts[normName(name)]={pos:isCut?"CUT":(i===0?"1":"T"+(i+1)),score:isCut?"CUT":scoreStr,status:isCut?"cut":"active",posNum:isCut?CUT_PENALTY:i+1,rawName:name,thru:isCut?"CUT":(r4>0?"F":r3>0?"F":"9"),r1:String(r1),r2:String(r2),r3:r3>0?String(r3):"--",r4:r4>0?String(r4):"--"};
-  });
-  espnScores=ts;
-  var top=ts[normName(names[0])];
-  document.getElementById("lb-status").innerHTML='<span style="background:#FEF3C7;color:#78350F;padding:3px 9px;border-radius:99px;font-size:12px;font-weight:700;">&#127381; TEST</span>&nbsp;Simulated R3 &mdash; live data pulls Thursday';
-  document.getElementById("last-updated").textContent="Test data loaded "+fmtTime(Date.now());
-  renderLeaderboard({status:"in",scores:ts,leader:top});
-}
-
-// ── SUMMARY ──────────────────────────────────────────────────────────────────
-function showSummary(){
-  clearInterval(lbTimer);
-  fbGet("/"+poolKey).then(function(d){if(d&&d.config)poolData=d;}).catch(function(){})
-    .then(function(){renderSummary();show("pg-summary");});
-}
-function renderSummary(){
-  var cfg=poolData.config,picks=poolData.picks||{};
-  var n=cfg.players.length,t=n*cfg.buyin;
-  document.getElementById("sum-meta").textContent=n+" players \u00b7 $"+cfg.buyin+" buy-in";
-  document.getElementById("sum-total").textContent="$"+t;
-  document.getElementById("sum-1st").textContent="$"+Math.round(t*.7);
-  document.getElementById("sum-2nd").textContent="$"+Math.round(t*.3);
-  var chips=["ch1","ch2","ch3","ch4","ch5","ch6"];
-  var html="";
-  cfg.players.forEach(function(p){
-    var pp=picks[p]||{},allDone=TIERS.every(function(t){return pp["t"+t.id];});
-    html+="<div class='sum-row'><div style='font-size:14px;font-weight:700;margin-bottom:6px;'>"+p;
-    html+=allDone?" <span style='color:var(--green);font-size:12px;font-weight:400;'>\u2713 Done</span>":" <span style='color:#bbb;font-size:12px;font-weight:400;'>(pending)</span>";
-    html+="</div><div>";
-    TIERS.forEach(function(tier,i){
-      var pick=pp["t"+tier.id];
-      html+=pick?"<span class='chip "+chips[i]+"'>"+pick+"</span>":"<span class='dash-chip'>T"+tier.id+": \u2014</span>";
-    });
-    html+="</div></div>";
-  });
-  document.getElementById("sum-picks").innerHTML=html;
-  document.getElementById("share-url").textContent=shareURL();
-  // Show export button to commissioner only
-  var exportBtn=document.getElementById("export-btn");
-  if(exportBtn){
-    var isAdmin=me&&poolData.config&&(me===poolData.config.by||me.toLowerCase()===poolData.config.by.toLowerCase());
-    exportBtn.style.display=isAdmin?"inline-flex":"none";
-  }
-}
-function copyLink(btn){
-  var url=shareURL();
-  if(navigator.clipboard&&navigator.clipboard.writeText){
-    navigator.clipboard.writeText(url).then(function(){btn.textContent="Copied! \u2713";setTimeout(function(){btn.textContent="Copy link";},2000);});
-  }else{prompt("Copy this link:",url);}
-}
-
-// ── FUN / PROPS ──────────────────────────────────────────────────────────────
-function showFun(){
-  clearInterval(lbTimer);
-  fbGet("/"+poolKey).then(function(d){if(d&&d.config)poolData=d;}).catch(function(){})
-    .then(function(){
-      show("pg-fun");
-      showFunSection("props");
-    });
-}
-function showFunSection(section){
-  var sections=["props","rules","trash"];
-  sections.forEach(function(s){
-    document.getElementById("fun-"+s).style.display=s===section?"block":"none";
-    var btn=document.getElementById("fsn-"+s);
-    if(btn){btn.classList.toggle("active",s===section);}
-  });
-  if(section==="props")renderPropsView();
-  if(section==="trash")loadTrash();
-}
-
-function renderPropsView(){
-  var allPropPicks=poolData.prop_picks||{};
-  var results=poolData.prop_results||null;
-  var players=poolData.config.players;
-  var pot=perPropPot();
-  // Show admin button only to commissioner
-  // Show enter results to commissioner; also show to anyone if results not yet entered
-  var showAdmin=isCommissioner()||(me&&poolData.config&&poolData.config.by&&me.toLowerCase()===poolData.config.by.toLowerCase());
-  document.getElementById("props-admin-btn").style.display=showAdmin?"block":"none";
-  var totalPropPot=(poolData.config.players.length)*(poolData.config.prop_buyin||10);
-  var subtitle="McDowell Mountain \u00b7 Saturday \u00b7 1 pt per correct answer \u00b7 90/10 payout \u00b7 $"+totalPropPot+" pot";
-  document.getElementById("props-subtitle").textContent=subtitle;
-  var html="";
-  PROPS.forEach(function(prop){
-    var result=results?results[prop.id]:null;
-    var winners=result!=null?calcPropWinners(prop,allPropPicks,result):[];
-    html+='<div class="prop-card">';
-    // Header
-    html+='<div class="prop-header"><div>';
-    html+='<div class="prop-label">'+prop.label+'</div>';
-    html+='<div class="prop-q">'+prop.q+'</div>';
-    html+='</div></div>';
-    // Body
-    html+='<div class="prop-body">';
-    if(result!=null){
-      html+='<div style="font-size:13px;font-weight:700;margin-bottom:8px;">Result: <span style="color:var(--green);">'+result+'</span></div>';
-    }
-    // Picks table
-    html+='<table class="prop-picks-table">';
-    players.forEach(function(player){
-      var myPickVal=(allPropPicks[player]||{})[prop.id];
-      var displayVal=myPickVal!=null?String(myPickVal):"—";
-      var isMe=player===me;
-      // Determine correct/wrong if results available
-      var indicator="";
-      if(result!=null&&myPickVal!=null){
-        var correct=false;
-        if(prop.type==="player"||prop.type==="yes_no"){
-          correct=String(myPickVal)===String(result);
-        } else if(prop.type==="number"){
-          // Is this the closest guess?
-          var bestDiff=Infinity,bestLow=Infinity;
-          players.forEach(function(p2){
-            var p2pick=(allPropPicks[p2]||{})[prop.id];
-            if(p2pick==null)return;
-            var diff=Math.abs(parseInt(p2pick)-parseInt(result));
-            if(diff<bestDiff||(diff===bestDiff&&parseInt(p2pick)<bestLow)){bestDiff=diff;bestLow=parseInt(p2pick);}
-          });
-          correct=Math.abs(parseInt(myPickVal)-parseInt(result))===bestDiff&&parseInt(myPickVal)===bestLow;
-        }
-        indicator=correct
-          ?'<span style="color:#064E3B;font-weight:700;margin-left:6px;">&#10003;</span>'
-          :'<span style="color:#881337;font-weight:500;margin-left:6px;">&#10005;</span>';
-      }
-      html+='<tr><td>'+player+(isMe?' <span class="prop-my-pick">you</span>':"")+'</td><td>'+displayVal+indicator+'</td></tr>';
-    });
-    html+='</table>';
-    html+='</div></div>';
-  });
-  document.getElementById("props-container").innerHTML=html;
-  // Show payouts if results exist
-  if(results){
-    calculateAndShowPayouts(allPropPicks,results);
-  }
-}
-
-function calcPropWinners(prop,allPropPicks,result){
-  var players=poolData.config.players;
-  var winners=[];
-  if(prop.type==="player"||prop.type==="yes_no"){
-    players.forEach(function(p){
-      var pick=(allPropPicks[p]||{})[prop.id];
-      if(pick!=null&&String(pick)===String(result))winners.push(p);
-    });
-  } else if(prop.type==="number"){
-    // Closest wins, tie goes to lower guess
-    var bestDiff=Infinity,bestLow=Infinity;
-    players.forEach(function(p){
-      var pick=(allPropPicks[p]||{})[prop.id];
-      if(pick==null)return;
-      var n=parseInt(pick),r=parseInt(result);
-      var diff=Math.abs(n-r);
-      if(diff<bestDiff||(diff===bestDiff&&n<bestLow)){bestDiff=diff;bestLow=n;winners=[];}
-      if(diff===bestDiff&&n===bestLow)winners.push(p);
-    });
-  }
-  return winners;
-}
-
-function showResultsEntry(){
-  document.getElementById("results-entry").style.display="block";
-  document.getElementById("payout-section").style.display="none";
-  renderResultsForm();
-  document.getElementById("results-entry").scrollIntoView({behavior:"smooth",block:"start"});
-}
-function renderResultsForm(){
-  var players=poolData.config.players;
-  var existing=poolData.prop_results||{};
-  var html="";
-  PROPS.forEach(function(prop){
-    var val=existing[prop.id]!=null?existing[prop.id]:"";
-    html+='<div class="result-field">';
-    html+='<label>'+prop.label+'</label>';
-    if(prop.type==="player"){
-      html+='<select id="res-'+prop.id+'">';
-      html+='<option value="">-- Select winner --</option>';
-      players.forEach(function(p){html+='<option value="'+p.replace(/"/g,"&quot;")+'"'+(val===p?" selected":"")+'>'+p+'</option>';});
-      html+='</select>';
-    } else if(prop.type==="number"){
-      html+='<div class="hint">Enter the actual number (e.g. Darren shot 91)</div>';
-      html+='<input type="number" id="res-'+prop.id+'" value="'+(val!==""?val:"")+'" placeholder="Enter actual value..." min="1" max="200" />';
-    } else if(prop.type==="yes_no"){
-      html+='<div style="display:flex;gap:8px;">';
-      html+='<button class="btn '+(val==="yes"?"primary":"secondary")+' full" id="res-'+prop.id+'-yes" onclick="setResult(\''+prop.id+'\',\'yes\')" style="flex:1;">&#128077; Yes</button>';
-      html+='<button class="btn '+(val==="no"?"btn-gold":"secondary")+' full" id="res-'+prop.id+'-no" onclick="setResult(\''+prop.id+'\',\'no\')" style="flex:1;">&#128078; No</button>';
-      html+='</div>';
-    }
-    html+='</div>';
-  });
-  document.getElementById("results-form").innerHTML=html;
-}
-var pendingResults={};
-function setResult(propId,val){
-  if(!pendingResults)pendingResults={};
-  pendingResults[propId]=pendingResults[propId]===val?null:val;
-  renderResultsForm();
-  // Apply pendingResults to form state
-  setTimeout(function(){
-    PROPS.forEach(function(p){
-      if(p.type==="yes_no"&&pendingResults[p.id]){
-        var yBtn=document.getElementById("res-"+p.id+"-yes");
-        var nBtn=document.getElementById("res-"+p.id+"-no");
-        if(yBtn)yBtn.className="btn "+(pendingResults[p.id]==="yes"?"primary":"secondary")+" full";
-        if(nBtn)nBtn.className="btn "+(pendingResults[p.id]==="no"?"btn-gold":"secondary")+" full";
-      }
-    });
-  },0);
-}
-function saveResults(){
-  var results={};
-  PROPS.forEach(function(prop){
-    if(prop.type==="player"||prop.type==="number"){
-      var el=document.getElementById("res-"+prop.id);
-      if(el&&el.value!==""){
-        results[prop.id]=prop.type==="number"?parseInt(el.value):el.value;
-      }
-    } else if(prop.type==="yes_no"){
-      if(pendingResults&&pendingResults[prop.id]){results[prop.id]=pendingResults[prop.id];}
-      else{
-        var existing=poolData.prop_results&&poolData.prop_results[prop.id];
-        if(existing)results[prop.id]=existing;
-      }
-    }
-  });
-  fbPatch("/"+poolKey,{prop_results:results}).then(function(){
-    poolData.prop_results=results;
-    document.getElementById("results-entry").style.display="none";
-    renderPropsView();
-    alert("Results saved! Payouts calculated.");
-  }).catch(function(e){alert("Save failed.\n\n"+e.message);});
-}
-
-function countCorrect(player, allPropPicks, results){
-  var picks=allPropPicks[player]||{};
-  var correct=0;
-  PROPS.forEach(function(prop){
-    var result=results[prop.id];
-    if(result==null)return;
-    var pick=picks[prop.id];
-    if(pick==null)return;
-    if(prop.type==="player"||prop.type==="yes_no"){
-      if(String(pick)===String(result))correct++;
-    } else if(prop.type==="number"){
-      // For number props, "correct" = closest guess (tie: lower wins)
-      // Find the best guess across all players first
-      var bestDiff=Infinity, bestLow=Infinity;
-      (poolData.config.players||[]).forEach(function(p2){
-        var p2pick=(allPropPicks[p2]||{})[prop.id];
-        if(p2pick==null)return;
-        var diff=Math.abs(parseInt(p2pick)-parseInt(result));
-        if(diff<bestDiff||(diff===bestDiff&&parseInt(p2pick)<bestLow)){
-          bestDiff=diff;bestLow=parseInt(p2pick);
-        }
-      });
-      var myDiff=Math.abs(parseInt(pick)-parseInt(result));
-      if(myDiff===bestDiff&&parseInt(pick)===bestLow)correct++;
-    }
-  });
-  return correct;
-}
-function darrenScoreDiff(player, allPropPicks, results){
-  // Returns absolute difference from Darren's actual score for tiebreaking.
-  // Lower = better. If no guess, returns 9999.
-  var actual=results["darren_score"];
-  if(actual==null) return 9999;
-  var guess=(allPropPicks[player]||{})["darren_score"];
-  if(guess==null) return 9999;
-  return Math.abs(parseInt(guess)-parseInt(actual));
-}
-function calculateAndShowPayouts(allPropPicks,results){
-  var players=poolData.config.players;
-  var propBuyin=poolData.config.prop_buyin||10;
-  var totalPot=players.length*propBuyin;
-  var prize1=Math.round(totalPot*0.9);
-  var prize2=totalPot-prize1;
-  // 1 point per correct answer
-  var scores={};
-  players.forEach(function(p){scores[p]=countCorrect(p,allPropPicks,results);});
-  // Sort: most points first. Tiebreak by closest Darren score guess (lower diff = better).
-  // Second tiebreak: lower guess wins (same diff means they guessed the same number).
-  var sorted=players.slice().sort(function(a,b){
-    if(scores[b]!==scores[a]) return scores[b]-scores[a];
-    var da=darrenScoreDiff(a,allPropPicks,results);
-    var db=darrenScoreDiff(b,allPropPicks,results);
-    if(da!==db) return da-db; // closer to Darren's score wins
-    var ga=parseInt((allPropPicks[a]||{})["darren_score"])||9999;
-    var gb=parseInt((allPropPicks[b]||{})["darren_score"])||9999;
-    return ga-gb; // lower guess wins final tiebreak
-  });
-  var first=sorted[0];
-  // 2nd place: next player who has fewer points OR a worse Darren tiebreak than 1st
-  // (i.e. genuinely ranked 2nd, not just the other half of a score tie that's already resolved)
-  var second=sorted.length>1?sorted[1]:null;
-  var answeredCount=Object.keys(results).length;
-  var darrenActual=results["darren_score"];
-  var tiebreakUsed=second&&scores[first]===scores[second];
-  var html='<div style="font-size:13px;color:var(--muted);margin-bottom:12px;">'+
-    answeredCount+' of '+NUM_PROPS+' props scored &bull; $'+totalPot+' total pot &bull; 1pt per correct answer';
-  if(tiebreakUsed) html+=' &bull; <strong style="color:var(--gold);">Tiebreak: Darren\u0027s score</strong>';
-  html+='</div>';
-  sorted.forEach(function(p,rank){
-    var s=scores[p];
-    var is1st=rank===0;
-    var is2nd=rank===1&&second!==null;
-    var net=is1st?(prize1-propBuyin):is2nd?(prize2-propBuyin):-propBuyin;
-    var diff=darrenActual!=null?darrenScoreDiff(p,allPropPicks,results):null;
-    html+='<div class="payout-row">';
-    html+='<div><span style="font-weight:700;">'+p+'</span>';
-    html+=' <span style="font-size:13px;color:var(--muted);">'+s+'/'+answeredCount+' pts';
-    if(tiebreakUsed&&diff!==null&&diff!==9999) html+=' &bull; Darren diff: '+diff;
-    html+='</span>';
-    if(is1st) html+=' <span class="prop-winner-badge">&#127942; 1st</span>';
-    else if(is2nd) html+=' <span style="background:#E5E7EB;color:#374151;font-size:11px;padding:2px 8px;border-radius:99px;font-weight:600;margin-left:6px;">&#129352; 2nd</span>';
-    html+='</div>';
-    if(net>0) html+='<div class="payout-net-pos">+$'+net+'</div>';
-    else if(net===0) html+='<div style="color:var(--muted);font-size:14px;">Even</div>';
-    else html+='<div class="payout-net-neg">-$'+Math.abs(net)+'</div>';
-    html+='</div>';
-  });
-  document.getElementById("payout-table").innerHTML=html;
-  document.getElementById("payout-section").style.display="block";
-}
-
-// ── TRASH TALK ───────────────────────────────────────────────────────────────
-function loadTrash(){
-  fbGet("/"+poolKey+"/trash").then(function(data){
-    var msgs=[];
-    if(data&&typeof data==="object"){Object.values(data).forEach(function(m){if(m&&m.text)msgs.push(m);});msgs.sort(function(a,b){return b.ts-a.ts;});}
-    renderTrash(msgs.slice(0,30));
-  }).catch(function(){renderTrash([]);});
-}
-function renderTrash(msgs){
-  if(!msgs.length){document.getElementById("trash-list").innerHTML='<div class="trash-empty">No trash talk yet &mdash; start something &#128526;</div>';return;}
-  document.getElementById("trash-list").innerHTML=msgs.map(function(m){
-    return "<div class='trash-msg'><div class='trash-meta'><span class='trash-author'>"+m.author+"</span><span class='trash-time'>"+fmtTime(m.ts)+"</span></div><div class='trash-text'>"+m.text.replace(/</g,"&lt;").replace(/>/g,"&gt;")+"</div></div>";
-  }).join("");
-}
-function postTrash(){
-  var inp=document.getElementById("trash-msg-in"),text=inp.value.trim();
-  if(!text)return;
-  if(!me){alert("Tap your name on the main screen first!");return;}
-  inp.value="";
-  fbPost("/"+poolKey+"/trash",{author:me,text:text,ts:Date.now()}).then(function(){loadTrash();}).catch(function(){});
-}
-
-// ── EXPORT ───────────────────────────────────────────────────────────────────
-function csvCell(v){
-  var s=String(v==null?"":v);
-  if(s.indexOf(",")!==-1||s.indexOf('"')!==-1){s='"'+s.replace(/"/g,'""')+'"';}
-  return s;
-}
-function csvRow(arr){return arr.map(csvCell).join(",");}
-function exportCSV(){
-  var cfg=poolData.config,picks=poolData.picks||{};
-  var propPicks=poolData.prop_picks||{},propResults=poolData.prop_results||null;
-  var players=cfg.players,ts=new Date().toLocaleString();
-  var lines=[];
-
-  // Masters picks
-  lines.push(csvRow(["=== MASTERS PICKS === Exported: "+ts]));
-  var mh=["Player"];TIERS.forEach(function(t){mh.push(t.label);});
-  if(espnScores)mh.push("Pool Score");
-  lines.push(csvRow(mh));
-  players.forEach(function(p){
-    var pp=picks[p]||{},total=0,hasPicks=false;
-    var row=[p];
-    TIERS.forEach(function(t){
-      var pick=pp["t"+t.id]||"";row.push(pick);
-      if(pick){hasPicks=true;var s=lookupScore(pick);total+=s?s.posNum:70;}
-    });
-    if(espnScores)row.push(hasPicks?total:"no picks");
-    lines.push(csvRow(row));
-  });
-
-  lines.push("");lines.push("");
-
-  // Prop picks
-  lines.push(csvRow(["=== PROP PICKS === McDowell Mountain Saturday"]));
-  var ph=["Player"];PROPS.forEach(function(pr){ph.push(pr.label);});ph.push("Points");
-  lines.push(csvRow(ph));
-  players.forEach(function(p){
-    var pp=propPicks[p]||{};
-    var row=[p];
-    PROPS.forEach(function(pr){var v=pp[pr.id];row.push(v!=null?String(v):"");});
-    row.push(propResults?countCorrect(p,propPicks,propResults):"");
-    lines.push(csvRow(row));
-  });
-  if(propResults){
-    var rr=["ACTUAL RESULTS"];
-    PROPS.forEach(function(pr){var v=propResults[pr.id];rr.push(v!=null?String(v):"");});
-    rr.push("");lines.push("");lines.push(csvRow(rr));
-  }
-
-  lines.push("");lines.push("");
-
-  // Money
-  lines.push(csvRow(["=== MONEY SUMMARY ==="]));
-  var n=players.length,mp=n*cfg.buyin,pp2=n*(cfg.prop_buyin||10);
-  lines.push(csvRow(["Masters pot","$"+mp,"1st (70%)","$"+Math.round(mp*.7),"2nd (30%)","$"+Math.round(mp*.3)]));
-  lines.push(csvRow(["Props pot","$"+pp2,"1st (90%)","$"+Math.round(pp2*.9),"2nd (10%)","$"+Math.round(pp2*.1)]));
-
-  // Download
-  var blob=new Blob([lines.join("\n")],{type:"text/csv;charset=utf-8;"});
-  var url=URL.createObjectURL(blob);
-  var a=document.createElement("a");
-  a.href=url;a.download="darizona-"+new Date().toISOString().slice(0,10)+".csv";
-  document.body.appendChild(a);a.click();
-  document.body.removeChild(a);URL.revokeObjectURL(url);
-}
-
-// ── BOOT ─────────────────────────────────────────────────────────────────────
-function init(){
-  var fbParam=getParam("fb"),poolParam=getParam("pool");
-  if(fbParam&&poolParam){
-    fbUrl=fbParam;poolKey=poolParam;
-    fbGet("/"+poolKey).then(function(data){
-      if(!data||!data.config)throw new Error("Pool not found");
-      poolData=data;renderJoinPage();show("pg-join");
-    }).catch(function(){show("pg-setup");});
-    return;
-  }
-  var saved=localStorage.getItem("fbUrl");
-  if(saved){fbUrl=saved;show("pg-create");return;}
-  show("pg-setup");
-}
-init();
-</script>
 </body>
 </html>
