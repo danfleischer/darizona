@@ -2,7 +2,8 @@
 
 ## Project overview
 
-Vite + vanilla JS SPA. No framework. Supabase (Postgres + Auth + RLS) for persistence. ESPN public API for live scores.
+Vite + vanilla JS SPA. No framework. Supabase Postgres for persistence. ESPN public API for live scores.
+PIN-only login; Supabase Auth + RLS are not used.
 
 **Mobile-first — this is the primary use case.** Everyone accesses the app on their phone. All UI decisions should prioritize the mobile experience. Key constraints: 16px minimum font-size on inputs (prevents iOS auto-zoom), touch targets ≥44px, no horizontal overflow, single-column layouts.
 
@@ -12,23 +13,20 @@ Vite + vanilla JS SPA. No framework. Supabase (Postgres + Auth + RLS) for persis
 
 ```
 src/
-├── main.js          Entry point: CSS import, all static event listeners, init()
+├── main.js          Entry point: CSS import, event listeners, init()
 ├── constants.js     TIERS, PROPS, MASTERS_LOCK, PROPS_LOCK, CUT_PENALTY, NUM_PROPS, NAME_ALIASES
-├── state.js         Single mutable state object — fbUrl, poolKey, poolData, me, myPicks, ...
-├── firebase.js      fbGet, fbPut, fbPatch, fbPost — all use state.fbUrl
+├── state.js         Single mutable state object
 ├── espn.js          fetchESPN, lookupScore, normName — ESPN leaderboard API
 ├── utils.js         show, getParam, shareURL, mastersLocked, propsLocked, fmtTime, isCommissioner, perPropPot, esc, normName
 └── pages/
-    ├── setup.js     doSetup
-    ├── create.js    addPlayer, removePlayer, renderPlayerTags, refreshPot, createPool
+    ├── auth.js      PIN login
     ├── join.js      renderJoinPage, showJoin
-    ├── picks.js     startPicking, renderReadOnlyPicks, renderPickPage, renderTiers, toggleTier, togglePick, savePicks
-    ├── propPicks.js showPropPicks, renderPropPickScreen, syncPropPicksFromDOM, setPropPick, savePropPicks
+    ├── picks.js     startPicking, renderPickPage, renderTiers, toggleTier, togglePick, submitPicks
+    ├── propPicks.js showPropPicks, renderPropPickScreen, syncPropPicksFromDOM, setPropPick, submitPropPicks
     ├── leaderboard.js showLeaderboard, loadLeaderboard, renderLeaderboard, scoreClass, loadTestScores
     ├── summary.js   showSummary, renderSummary, copyLink, exportCSV
-    └── fun.js       showFun, showFunSection, renderPropsView, calcPropWinners, showResultsEntry,
-                     renderResultsForm, setResult, saveResults, countCorrect, darrenScoreDiff,
-                     calculateAndShowPayouts, loadTrash, renderTrash, postTrash
+    └── fun.js       showFun, showFunSection, renderPropsView, showResultsEntry,
+                     renderResultsForm, setResult, saveResults, calculateAndShowPayouts
 ```
 
 ## Dependency order (no circular imports)
@@ -36,10 +34,9 @@ src/
 ```
 constants  ← nothing
 state      ← nothing
-firebase   ← state
 utils      ← state, constants
 espn       ← state, constants, utils
-pages/*    ← state, constants, utils, firebase, espn (+ sibling pages as needed)
+pages/*    ← state, constants, utils, espn (+ sibling pages as needed)
 main.js    ← everything
 ```
 
@@ -49,7 +46,7 @@ main.js    ← everything
 
 ## State
 
-All mutable state lives in `src/state.js` as a single default-exported object:
+All mutable state lives in `src/state.js` as a single default-exported object.
 
 ```js
 { fbUrl, poolKey, poolData, me, myPicks, myPropPicks, setupList,
@@ -77,7 +74,6 @@ Generated HTML uses `data-action` + `data-*` instead of `onclick`. Containers li
 | Container | Actions |
 |-----------|---------|
 | `#name-list` | `startPicking`, `startPropPicking` |
-| `#player-tags` | `removePlayer` |
 | `#tier-list` | `togglePick`, `toggleTier` |
 | `#prop-pick-list` | `setPropPick` |
 | `#results-form` | `setResult` |
@@ -89,12 +85,8 @@ Generated HTML uses `data-action` + `data-*` instead of `onclick`. Containers li
 - **`normName`** is in `utils.js` — imported into `espn.js`. Do not duplicate.
 - **`pendingResults`** lives in `state.pendingResults` — used by `fun.js` for yes/no result entry before saving.
 - **`lbTimer`** must always be `state.lbTimer`, never a local var, or clearInterval won't work across navigations.
-- **XSS**: use `esc()` from `utils.js` for any user-provided data in innerHTML (player names from Firebase, prop results). Trash talk text is `.replace(/</g, "&lt;")` escaped in `renderTrash`.
-- **`base: './'`** in `vite.config.js` is required for GH Pages subdirectory deployment.
-- **Test button** (`#test-btn`) visibility is controlled in `showLeaderboard()` — must fire on navigation, not at init. Hidden when `mastersLocked()`.
-- **`exportCSV`** uses a local `propPicks` var (from `state.poolData.prop_picks`) — do not confuse with `state.myPropPicks`.
+- **XSS**: use `esc()` from `utils.js` for any user-provided data in innerHTML.
 - **`syncPropPicksFromDOM()`** must be called before any re-render in propPicks page, to capture number inputs and select values before they're replaced.
-- **`create.js` imports `renderPickPage` from `picks.js`** — after creating a pool, commissioner goes straight to pick page.
 
 ---
 
