@@ -2,7 +2,7 @@ import state from '../state.js';
 import { PROPS } from '../constants.js';
 import { show, propsLocked, perPropPot } from '../utils.js';
 import { savePropPickDraft, submitPropPicks as dbSubmitPropPicks } from '../supabase.js';
-import { showJoin } from './join.js';
+import { showSummary } from './summary.js';
 
 export function showPropPicks() {
   renderPropPickScreen();
@@ -88,8 +88,8 @@ export async function submitPropPicks() {
     }
     await dbSubmitPropPicks(state.poolId);
     state.myPropPicksSubmitted = true;
-    // Auto-advance to main pool page
-    showJoin();
+    // Auto-advance to all picks page
+    showSummary();
   } catch(e) {
     btn.innerHTML = "Submit prop picks &#10003;"; btn.disabled = false;
     alert("Submit failed.\n\n" + e.message);

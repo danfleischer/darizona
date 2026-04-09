@@ -3,8 +3,7 @@ import state from './state.js';
 import { getPool, getPoolPlayers, getMyPicks, getMyPropPicks, getAllPicks, getAllPropPicks, getPropResults } from './supabase.js';
 import { getParam, show } from './utils.js';
 import { showAuth, initAuth } from './pages/auth.js';
-import { showJoin, renderJoinPage } from './pages/join.js';
-import { startPicking, startPropPicking, submitPicks, renderPickPage, renderTiers, toggleTier, togglePick } from './pages/picks.js';
+import { startPicking, submitPicks, renderPickPage, renderTiers, toggleTier, togglePick } from './pages/picks.js';
 import { showPropPicks, submitPropPicks, setPropPick } from './pages/propPicks.js';
 import { showLeaderboard, loadLeaderboard } from './pages/leaderboard.js';
 import { showSummary, copyLink, exportCSV } from './pages/summary.js';
@@ -19,9 +18,9 @@ if (submitPropBtn) submitPropBtn.addEventListener('click', submitPropPicks);
 const exportBtn = document.getElementById('export-btn');
 if (exportBtn) exportBtn.addEventListener('click', exportCSV);
 const pickBackBtn = document.getElementById('pick-back-btn');
-if (pickBackBtn) pickBackBtn.addEventListener('click', showJoin);
+if (pickBackBtn) pickBackBtn.addEventListener('click', showSummary);
 const propBackBtn = document.getElementById('prop-picks-back-btn');
-if (propBackBtn) propBackBtn.addEventListener('click', showJoin);
+if (propBackBtn) propBackBtn.addEventListener('click', showSummary);
 const copyLinkBtn = document.getElementById('copy-link-btn');
 if (copyLinkBtn) copyLinkBtn.addEventListener('click', function() { copyLink(this); });
 const enterResultsBtn = document.getElementById('enter-results-btn');
@@ -38,18 +37,11 @@ if (pickSearch) pickSearch.addEventListener('input', renderTiers);
 document.addEventListener('click', function(e) {
   var tab = e.target.closest('[data-nav]');
   if (!tab) return;
-  var navMap = { join: showJoin, leaderboard: showLeaderboard, summary: showSummary, fun: showFun };
+  var navMap = { leaderboard: showLeaderboard, summary: showSummary, fun: showFun };
   if (navMap[tab.dataset.nav]) navMap[tab.dataset.nav]();
 });
 
 // ── DYNAMIC CONTENT DELEGATION ────────────────────────────────────────────────
-
-document.getElementById('name-list').addEventListener('click', function(e) {
-  var btn = e.target.closest('[data-action]');
-  if (!btn) return;
-  if (btn.dataset.action === 'startPicking') startPicking();
-  if (btn.dataset.action === 'startPropPicking') startPropPicking();
-});
 
 document.getElementById('tier-list').addEventListener('click', function(e) {
   var btn = e.target.closest('[data-action]');
@@ -78,10 +70,9 @@ document.addEventListener('pin-login', function() { init(); });
 
 function restoreLastPage() {
   const lastPage = localStorage.getItem("last_page");
-  const allowed = new Set(["pg-join", "pg-leaderboard", "pg-summary", "pg-fun", "pg-pick", "pg-prop-picks"]);
+  const allowed = new Set(["pg-leaderboard", "pg-summary", "pg-fun", "pg-pick", "pg-prop-picks"]);
   if (!allowed.has(lastPage)) {
-    renderJoinPage();
-    show('pg-join');
+    showSummary();
     return;
   }
   if (lastPage === "pg-leaderboard") return showLeaderboard();
@@ -89,8 +80,7 @@ function restoreLastPage() {
   if (lastPage === "pg-fun") return showFun();
   if (lastPage === "pg-pick") { renderPickPage(); return show('pg-pick'); }
   if (lastPage === "pg-prop-picks") return showPropPicks();
-  renderJoinPage();
-  show('pg-join');
+  showSummary();
 }
 
 async function loadPool(poolId) {
@@ -167,7 +157,13 @@ async function init() {
         if (me) {
           state.displayName = me.display_name || state.displayName;
           await loadPool(pool.id);
-          restoreLastPage();
+          if (!state.myPicksSubmitted) {
+            startPicking();
+          } else if (!state.myPropPicksSubmitted) {
+            showPropPicks();
+          } else {
+            showSummary();
+          }
         } else {
           localStorage.removeItem('pin_user_id');
           localStorage.removeItem('pin_display_name');

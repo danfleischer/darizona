@@ -20,7 +20,6 @@ src/
 ├── utils.js         show, getParam, shareURL, mastersLocked, propsLocked, fmtTime, isCommissioner, perPropPot, esc, normName
 └── pages/
     ├── auth.js      PIN login
-    ├── join.js      renderJoinPage, showJoin
     ├── picks.js     startPicking, renderPickPage, renderTiers, toggleTier, togglePick, submitPicks
     ├── propPicks.js showPropPicks, renderPropPickScreen, syncPropPicksFromDOM, setPropPick, submitPropPicks
     ├── leaderboard.js showLeaderboard, loadLeaderboard, renderLeaderboard, scoreClass, loadTestScores
@@ -40,7 +39,7 @@ pages/*    ← state, constants, utils, espn (+ sibling pages as needed)
 main.js    ← everything
 ```
 
-**Circular risk resolved**: `picks.js` back button calls `renderJoinPage()` + `show('pg-join')` directly (imports from `join.js`), NOT `showJoin()`. `join.js` does NOT import from `picks.js`.
+**Navigation**: Pick/Prop screens go back to Summary (no join page).
 
 ---
 
