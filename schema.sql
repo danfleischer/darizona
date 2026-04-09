@@ -3,7 +3,7 @@
 create table pools (
   id                uuid primary key default gen_random_uuid(),
   share_token       text unique not null default substr(md5(random()::text), 1, 10),
-  created_by        uuid references auth.users not null,
+  created_by        uuid,
   buyin             int not null default 20,
   prop_buyin        int not null default 10,
   masters_locked_at timestamptz not null default '2026-04-09T12:00:00Z',
@@ -13,8 +13,9 @@ create table pools (
 
 create table pool_players (
   pool_id         uuid references pools not null,
-  user_id         uuid references auth.users not null,
+  user_id         uuid not null,
   display_name    text not null,
+  pin             text,
   is_commissioner bool default false,
   primary key (pool_id, user_id)
 );
@@ -22,7 +23,7 @@ create table pool_players (
 create table picks (
   id          uuid primary key default gen_random_uuid(),
   pool_id     uuid references pools not null,
-  user_id     uuid references auth.users not null,
+  user_id     uuid not null,
   tier        int not null,
   golfer_name text,
   submitted   bool default false,
@@ -33,7 +34,7 @@ create table picks (
 create table prop_picks (
   id        uuid primary key default gen_random_uuid(),
   pool_id   uuid references pools not null,
-  user_id   uuid references auth.users not null,
+  user_id   uuid not null,
   prop_id   text not null,
   value     text,
   submitted bool default false,
@@ -50,19 +51,19 @@ create table prop_results (
 create table trash (
   id         uuid primary key default gen_random_uuid(),
   pool_id    uuid references pools not null,
-  user_id    uuid references auth.users not null,
+  user_id    uuid not null,
   text       text not null,
   created_at timestamptz default now()
 );
 
 -- ── RLS ───────────────────────────────────────────────────────────────────────
 
-alter table pools        enable row level security;
-alter table pool_players enable row level security;
-alter table picks        enable row level security;
-alter table prop_picks   enable row level security;
-alter table prop_results enable row level security;
-alter table trash        enable row level security;
+alter table pools        disable row level security;
+alter table pool_players disable row level security;
+alter table picks        disable row level security;
+alter table prop_picks   disable row level security;
+alter table prop_results disable row level security;
+alter table trash        disable row level security;
 
 -- pools
 create policy "pools: read if member" on pools for select using (

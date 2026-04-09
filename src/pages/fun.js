@@ -97,8 +97,7 @@ export function showResultsEntry() {
 }
 
 export function renderResultsForm() {
-  var golfers = (state.poolData && state.poolData.golfers) || [];
-  var golferNames = golfers.map(function(g) { return g.name; });
+  var golferNames = (state.players || []).map(function(p) { return p.display_name; });
   var existing = state.propResults || {};
   var html = "";
   PROPS.forEach(function(prop) {
@@ -225,4 +224,3 @@ function calculateAndShowPayouts(results) {
   document.getElementById("payout-table").innerHTML = html;
   document.getElementById("payout-section").style.display = "block";
 }
-

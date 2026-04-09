@@ -59,29 +59,6 @@ function uid() {
   return state.userId;
 }
 
-// ── AUTH ─────────────────────────────────────────────────────────────────────
-
-export function getSession() {
-  return supabase.auth.getSession();
-}
-
-export function onAuthStateChange(cb) {
-  return supabase.auth.onAuthStateChange(cb);
-}
-
-export async function sendMagicLink(email, redirectTo) {
-  const { error } = await supabase.auth.signInWithOtp({
-    email,
-    options: { emailRedirectTo: redirectTo || (window.location.origin + window.location.pathname) },
-  });
-  if (error) throw error;
-}
-
-export async function signOut() {
-  const { error } = await supabase.auth.signOut();
-  if (error) throw error;
-}
-
 // ── POOL ─────────────────────────────────────────────────────────────────────
 
 export async function getPool(shareToken) {
@@ -92,36 +69,6 @@ export async function getPool(shareToken) {
     .single();
   if (error) throw error;
   return data;
-}
-
-export async function createPool({ buyin, propBuyin, golfers }) {
-  console.log('[supabase] inserting pool, golfers:', golfers);
-  const { error } = await supabase
-    .from('pools')
-    .insert({ buyin, prop_buyin: propBuyin, created_by: uid(), golfers: golfers || [] });
-  console.log('[supabase] insert result, error:', error);
-  if (error) throw error;
-
-  console.log('[supabase] fetching created pool');
-  const { data, error: selErr } = await supabase
-    .from('pools')
-    .select('*')
-    .eq('created_by', uid())
-    .order('created_at', { ascending: false })
-    .limit(1)
-    .single();
-  console.log('[supabase] fetch result, data:', data, 'error:', selErr);
-  if (selErr) throw selErr;
-  return data;
-}
-
-export async function invitePlayer(email, shareToken) {
-  const redirectTo = window.location.origin + window.location.pathname + '?pool=' + shareToken;
-  const { error } = await supabase.auth.signInWithOtp({
-    email,
-    options: { emailRedirectTo: redirectTo },
-  });
-  if (error) throw error;
 }
 
 // ── POOL PLAYERS ─────────────────────────────────────────────────────────────
@@ -135,18 +82,15 @@ export async function getPoolPlayers(poolId) {
   return data;
 }
 
-export async function joinPool(poolId, displayName) {
-  const { error } = await supabase
+export async function getPoolPlayerByPin(poolId, pin) {
+  const { data, error } = await supabase
     .from('pool_players')
-    .upsert({ pool_id: poolId, user_id: uid(), display_name: displayName }, { onConflict: 'pool_id,user_id' });
+    .select('*')
+    .eq('pool_id', poolId)
+    .eq('pin', pin)
+    .maybeSingle();
   if (error) throw error;
-}
-
-export async function addCommissioner(poolId, displayName) {
-  const { error } = await supabase
-    .from('pool_players')
-    .insert({ pool_id: poolId, user_id: uid(), display_name: displayName, is_commissioner: true });
-  if (error) throw error;
+  return data;
 }
 
 // ── PICKS ─────────────────────────────────────────────────────────────────────

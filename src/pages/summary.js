@@ -35,7 +35,7 @@ export function renderSummary() {
   var players = state.players || [];
   var pool = state.poolData || {};
   var n = players.length, t = n * (pool.buyin || 20);
-  document.getElementById("sum-meta").textContent = n + " players \u00b7 $" + (pool.buyin || 20) + " buy-in";
+  document.getElementById("sum-meta").textContent = n + " donks \u00b7 $" + (pool.buyin || 20) + " buy-in";
   document.getElementById("sum-total").textContent = "$" + t;
   document.getElementById("sum-1st").textContent = "$" + Math.round(t * .7);
   document.getElementById("sum-2nd").textContent = "$" + Math.round(t * .3);
@@ -111,7 +111,7 @@ export function exportCSV() {
   var lines = [];
 
   lines.push(csvRow(["=== MASTERS PICKS === Exported: " + ts]));
-  var mh = ["Player"]; TIERS.forEach(function(t) { mh.push(t.label); });
+  var mh = ["Donk"]; TIERS.forEach(function(t) { mh.push(t.label); });
   if (state.espnScores) mh.push("Pool Score");
   lines.push(csvRow(mh));
   players.forEach(function(player) {
@@ -127,7 +127,7 @@ export function exportCSV() {
 
   lines.push(""); lines.push("");
   lines.push(csvRow(["=== PROP PICKS === McDowell Mountain Saturday"]));
-  var ph = ["Player"]; PROPS.forEach(function(pr) { ph.push(pr.label); }); ph.push("Points");
+  var ph = ["Donk"]; PROPS.forEach(function(pr) { ph.push(pr.label); }); ph.push("Points");
   lines.push(csvRow(ph));
   players.forEach(function(player) {
     var pp = state.allPropPicks[player.user_id] || {};

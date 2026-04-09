@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>The Darizona Masters 2026</title>
+<link rel="icon" type="image/jpeg" href="/favicon.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script type="module" src="/src/main.js"></script>
@@ -20,17 +21,12 @@
       <div class="gold-line"></div>
     </div>
     <div class="card">
-      <div class="card-label">Sign in</div>
-      <p class="sub" style="margin-bottom:14px;">Enter your email and we'll send you a magic link &mdash; no password needed.</p>
-      <form id="magic-link-form">
-        <input type="email" id="auth-email" placeholder="your@email.com" autocomplete="email" style="margin-bottom:10px;width:100%;box-sizing:border-box;" />
-        <button type="submit" class="btn primary full" id="auth-btn">Send magic link &rarr;</button>
+      <div class="card-label">Enter your digits</div>
+      <p class="sub" style="margin-bottom:14px;">Enter the last 4 digits of your cell phone</p>
+      <form id="pin-form">
+        <input type="text" id="auth-pin" placeholder="Last 4 of your cell" inputmode="numeric" autocomplete="one-time-code" maxlength="6" style="margin-bottom:10px;width:100%;box-sizing:border-box;font-size:20px;letter-spacing:4px;padding:14px 12px;text-align:center;" />
+        <button type="submit" class="btn primary full" id="auth-btn">Enter &rarr;</button>
       </form>
-      <div id="auth-sent" style="display:none;text-align:center;padding:14px 0;">
-        <div style="font-size:24px;margin-bottom:8px;">&#128231;</div>
-        <div style="font-weight:700;margin-bottom:4px;">Check your email</div>
-        <div style="font-size:13px;color:var(--muted);">Click the link we sent you to sign in.</div>
-      </div>
       <p id="auth-error" style="color:#881337;font-size:13px;margin-top:8px;"></p>
     </div>
   </div>
@@ -42,98 +38,23 @@
   <p style="margin-top:14px;color:var(--muted);font-size:14px;">Loading...</p></div>
 </div>
 
-<!-- CREATE POOL -->
-<div id="pg-create" class="page">
-  <div style="padding-top:14px;">
-    <div class="hero">
-      <div class="hero-icon">&#9971;&#127797;</div>
-      <div class="hero-title serif">The Darizona Masters</div>
-      <div class="hero-sub">Darren Sweetwood Bachelor Pool &bull; Augusta 2026</div>
-      <div class="gold-line"></div>
-    </div>
-    <p class="sub">Set your buy-ins, create the pool, then share the link with everyone.</p>
-    <div class="card"><div class="card-label">Your name (commissioner)</div><input type="text" id="in-admin" placeholder="e.g. Dan" /></div>
-    <div class="card">
-      <div class="card-label">Masters pool buy-in per person ($)</div>
-      <input type="number" id="in-buyin" value="20" min="1" max="5000" />
-      <p style="font-size:12px;color:var(--muted);margin-top:6px;">Paid out 70/30 to top 2 pool finishers</p>
-    </div>
-    <div class="card">
-      <div class="card-label">Saturday prop bets buy-in per person ($)</div>
-      <input type="number" id="in-prop-buyin" value="10" min="1" max="500" />
-      <p style="font-size:12px;color:var(--muted);margin-top:6px;">Split evenly across 10 props &mdash; $<span id="per-prop-display">1</span> pot per prop per person</p>
-    </div>
-    <div class="card">
-      <div class="card-label">Saturday golfers</div>
-      <p style="font-size:12px;color:var(--muted);margin-bottom:8px;">These names appear in prop bet dropdowns. Email is optional &mdash; if provided they'll get a magic link invite.</p>
-      <div style="display:flex;gap:7px;margin-bottom:6px;">
-        <input type="text" id="in-golfer-name" placeholder="Name" style="flex:1;" />
-        <input type="email" id="in-golfer-email" placeholder="email (optional)" style="flex:1.4;" />
-        <button class="btn secondary btn-sm" id="add-golfer-btn" style="flex-shrink:0;">+ Add</button>
-      </div>
-      <div id="golfer-tags"></div>
-    </div>
-    <div class="card" id="pot-preview" style="display:none;">
-      <div class="card-label">Money breakdown</div>
-      <div class="pot-grid">
-        <div class="pot-box"><div class="pot-val" id="pot-total">$0</div><div class="pot-lbl">Masters pool</div></div>
-        <div class="pot-box"><div class="pot-val" id="prop-total">$0</div><div class="pot-lbl">Props total</div></div>
-        <div class="pot-box"><div class="pot-val" id="per-prop-pot">$0</div><div class="pot-lbl">Per prop pot</div></div>
-      </div>
-    </div>
-    <button class="btn primary full" id="create-btn">Create pool &amp; get link &rarr;</button>
-  </div>
-</div>
-
-<!-- JOIN -->
-<div id="pg-join" class="page">
-  <div style="padding-top:14px;">
-    <div class="hero">
-      <div class="hero-icon">&#9971;&#127797;</div>
-      <div class="hero-title serif">The Darizona Masters</div>
-      <div class="hero-sub">Darren Sweetwood Bachelor Pool &bull; Augusta 2026</div>
-      <div class="gold-line"></div>
-    </div>
-    <div class="sub-nav">
-      <div class="nav-tab active" data-nav="join">&#127939; Pick</div>
-      <div class="nav-tab" data-nav="leaderboard">&#127942; Scores</div>
-      <div class="nav-tab" data-nav="summary">&#128203; All</div>
-      <div class="nav-tab" data-nav="fun">&#127867; Fun</div>
-    </div>
-    <div class="card"><div id="name-list" style="display:flex;flex-direction:column;gap:8px;"></div></div>
-    <div class="pot-grid" id="pot-join"></div>
-  </div>
-</div>
-
-<!-- POOL JOIN (new member arriving via shared link) -->
-<div id="pg-pool-join" class="page">
-  <div style="padding-top:40px;max-width:400px;margin:0 auto;">
-    <div class="hero">
-      <div class="hero-icon">&#9971;&#127797;</div>
-      <div class="hero-title serif">The Darizona Masters</div>
-      <div class="hero-sub">Darren Sweetwood Bachelor Pool &bull; Augusta 2026</div>
-      <div class="gold-line"></div>
-    </div>
-    <div class="card">
-      <div class="card-label">Join the pool</div>
-      <p class="sub" style="margin-bottom:14px;">Enter the name everyone will see on the leaderboard.</p>
-      <input type="text" id="in-join-name" placeholder="Your name (e.g. Darren)" style="margin-bottom:10px;" />
-      <button class="btn primary full" id="join-btn">Join pool &rarr;</button>
-    </div>
-  </div>
-</div>
-
 <!-- PICK (Masters) -->
 <div id="pg-pick" class="page">
   <div style="padding-top:14px;">
+    <div class="hero">
+      <div class="hero-icon">&#9971;&#127797;</div>
+      <div class="hero-title serif">The Darizona Masters</div>
+      <div class="hero-sub">Darren Sweetwood Bachelor Pool &bull; Augusta 2026</div>
+      <div class="gold-line"></div>
+    </div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
       <h2 class="serif" style="margin:0;font-size:20px;" id="pick-heading">Your picks</h2>
-      <button class="btn secondary btn-sm" id="pick-back-btn">&larr; Back</button>
+      <button class="btn secondary btn-sm" id="pick-back-btn">&larr; All</button>
     </div>
     <p class="sub" id="pick-status">Pick one golfer from each tier.</p>
     <div id="pick-lock-banner" style="display:none;" class="lock-banner">&#128274; Masters picks are locked &mdash; tournament is underway</div>
     <div class="bar-wrap"><div class="bar" id="pick-bar" style="width:0%"></div></div>
-    <input class="search" type="text" id="pick-search" placeholder="Search any player..." />
+    <input class="search" type="text" id="pick-search" placeholder="Search any golfer..." />
     <div id="tier-list"></div>
     <div class="btn-row">
       <button class="btn primary full" id="submit-picks-btn">Submit picks &#10003;</button>
@@ -145,9 +66,15 @@
 <!-- PICK (Props) -->
 <div id="pg-prop-picks" class="page">
   <div style="padding-top:14px;">
+    <div class="hero">
+      <div class="hero-icon">&#9971;&#127797;</div>
+      <div class="hero-title serif">The Darizona Masters</div>
+      <div class="hero-sub">Darren Sweetwood Bachelor Pool &bull; Augusta 2026</div>
+      <div class="gold-line"></div>
+    </div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
       <h2 class="serif" style="margin:0;font-size:20px;">Saturday Props</h2>
-      <button class="btn secondary btn-sm" id="prop-picks-back-btn">&larr; Back to players</button>
+      <button class="btn secondary btn-sm" id="prop-picks-back-btn">&larr; All</button>
     </div>
     <p class="sub">McDowell Mountain Golf Club &bull; Lock in before tee-off Saturday</p>
     <div id="prop-lock-banner" style="display:none;" class="lock-banner">&#128274; Prop picks are locked &mdash; round is underway</div>
@@ -162,8 +89,13 @@
 <!-- LEADERBOARD -->
 <div id="pg-leaderboard" class="page">
   <div style="padding-top:14px;">
+    <div class="hero">
+      <div class="hero-icon">&#9971;&#127797;</div>
+      <div class="hero-title serif">The Darizona Masters</div>
+      <div class="hero-sub">Darren Sweetwood Bachelor Pool &bull; Augusta 2026</div>
+      <div class="gold-line"></div>
+    </div>
     <div class="sub-nav">
-      <div class="nav-tab" data-nav="join">&#127939; Pick</div>
       <div class="nav-tab active" data-nav="leaderboard">&#127942; Scores</div>
       <div class="nav-tab" data-nav="summary">&#128203; All</div>
       <div class="nav-tab" data-nav="fun">&#127867; Fun</div>
@@ -179,8 +111,13 @@
 <!-- ALL PICKS -->
 <div id="pg-summary" class="page">
   <div style="padding-top:14px;">
+    <div class="hero">
+      <div class="hero-icon">&#9971;&#127797;</div>
+      <div class="hero-title serif">The Darizona Masters</div>
+      <div class="hero-sub">Darren Sweetwood Bachelor Pool &bull; Augusta 2026</div>
+      <div class="gold-line"></div>
+    </div>
     <div class="sub-nav">
-      <div class="nav-tab" data-nav="join">&#127939; Pick</div>
       <div class="nav-tab" data-nav="leaderboard">&#127942; Scores</div>
       <div class="nav-tab active" data-nav="summary">&#128203; All</div>
       <div class="nav-tab" data-nav="fun">&#127867; Fun</div>
@@ -208,8 +145,13 @@
 <!-- FUN TAB -->
 <div id="pg-fun" class="page">
   <div style="padding-top:14px;">
+    <div class="hero">
+      <div class="hero-icon">&#9971;&#127797;</div>
+      <div class="hero-title serif">The Darizona Masters</div>
+      <div class="hero-sub">Darren Sweetwood Bachelor Pool &bull; Augusta 2026</div>
+      <div class="gold-line"></div>
+    </div>
     <div class="sub-nav">
-      <div class="nav-tab" data-nav="join">&#127939; Pick</div>
       <div class="nav-tab" data-nav="leaderboard">&#127942; Scores</div>
       <div class="nav-tab" data-nav="summary">&#128203; All</div>
       <div class="nav-tab active" data-nav="fun">&#127867; Fun</div>

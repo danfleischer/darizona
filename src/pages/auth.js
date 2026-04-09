@@ -1,36 +1,47 @@
-import { sendMagicLink } from '../supabase.js';
-import { getParam, show } from '../utils.js';
+import state from '../state.js';
+import { getPoolPlayerByPin } from '../supabase.js';
+import { show } from '../utils.js';
 
 export function showAuth() {
   show('pg-auth');
 }
 
 export function initAuth() {
-  const form = document.getElementById('magic-link-form');
-  const emailInput = document.getElementById('auth-email');
+  const form = document.getElementById('pin-form');
+  const pinInput = document.getElementById('auth-pin');
   const btn = document.getElementById('auth-btn');
-  const sent = document.getElementById('auth-sent');
   const errEl = document.getElementById('auth-error');
 
   form.addEventListener('submit', async function(e) {
     e.preventDefault();
-    const email = emailInput.value.trim();
-    if (!email) return;
-    btn.innerHTML = '<div class="spin"></div> Sending...';
+    const pinRaw = (pinInput.value || '');
+    const pin = pinRaw.replace(/\D/g, '');
+    if (pin.length !== 4) {
+      errEl.textContent = 'Hello, plz enter the last 4 of your cell';
+      return;
+    }
+    if (!state.poolId) {
+      errEl.textContent = 'WRONG! Plz try again';
+      return;
+    }
+    btn.innerHTML = '<div class="spin"></div> Checking...';
     btn.disabled = true;
     errEl.textContent = '';
     try {
-      // Preserve ?pool= param so magic link lands back on the right pool
-      const poolToken = getParam('pool');
-      const redirectTo = window.location.origin + window.location.pathname
-        + (poolToken ? '?pool=' + poolToken : '');
-      await sendMagicLink(email, redirectTo);
-      form.style.display = 'none';
-      sent.style.display = 'block';
+      const player = await getPoolPlayerByPin(state.poolId, pin);
+      if (!player) {
+        throw new Error('PIN not found for this pool.');
+      }
+      state.userId = player.user_id;
+      state.displayName = player.display_name;
+      localStorage.setItem('pin_user_id', player.user_id);
+      localStorage.setItem('pin_display_name', player.display_name || '');
+      localStorage.setItem('pin_pool_id', state.poolId);
+      document.dispatchEvent(new CustomEvent('pin-login'));
     } catch (err) {
-      btn.innerHTML = 'Send magic link &rarr;';
+      btn.innerHTML = 'Enter &rarr;';
       btn.disabled = false;
-      errEl.textContent = err.message || 'Something went wrong. Try again.';
+      errEl.textContent = err.message || 'Sign in failed. Try again.';
     }
   });
 }

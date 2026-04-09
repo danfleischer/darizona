@@ -2,7 +2,7 @@ import state from '../state.js';
 import { PROPS } from '../constants.js';
 import { show, propsLocked, perPropPot } from '../utils.js';
 import { savePropPickDraft, submitPropPicks as dbSubmitPropPicks } from '../supabase.js';
-import { showJoin } from './join.js';
+import { showSummary } from './summary.js';
 
 export function showPropPicks() {
   renderPropPickScreen();
@@ -23,7 +23,7 @@ export function renderPropPickScreen() {
     submitBtn.style.background = "";
     banner.style.display = "none";
   }
-  var players = ((state.poolData && state.poolData.golfers) || []).map(function(g) { return g.name; });
+  var players = (state.players || []).map(function(p) { return p.display_name; });
   var html = "";
   PROPS.forEach(function(prop) {
     var myVal = state.myPropPicks[prop.id];
@@ -35,7 +35,7 @@ export function renderPropPickScreen() {
     html += "<div class='prop-body'>";
     if (prop.type === "player") {
       html += "<select id='pp-" + prop.id + "' " + (locked ? "disabled" : "") + " style='background:" + (myVal ? "#E8F3EC" : "var(--sand)") + ";border-color:" + (myVal ? "var(--green2)" : "var(--border)") + "'>";
-      html += "<option value=''>-- Pick a player --</option>";
+      html += "<option value=''>-- Pick a donk --</option>";
       players.forEach(function(p) { html += "<option value='" + p.replace(/"/g, "&quot;") + "'" + (myVal === p ? " selected" : "") + ">" + p + "</option>"; });
       html += "</select>";
     } else if (prop.type === "number") {
@@ -88,8 +88,8 @@ export async function submitPropPicks() {
     }
     await dbSubmitPropPicks(state.poolId);
     state.myPropPicksSubmitted = true;
-    // Auto-advance to main pool page
-    showJoin();
+    // Auto-advance to all picks page
+    showSummary();
   } catch(e) {
     btn.innerHTML = "Submit prop picks &#10003;"; btn.disabled = false;
     alert("Submit failed.\n\n" + e.message);

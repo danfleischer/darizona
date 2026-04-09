@@ -1,65 +1,127 @@
 # The Darizona Masters
 
-A Masters golf pool app for Darren Sweetwood's bachelor party. Tracks picks across 6 tiers of golfers, Saturday prop bets, a live leaderboard pulling from ESPN, a trash talk board, and automatic payout calculation.
+Private Masters pool app for a single group. Runs as a static Vite app with Supabase Postgres for persistence.
 
-No backend — uses Firebase Realtime Database directly from the browser. Deployed as a static site on GitHub Pages.
+## What changed
+
+- PIN-only login (4 digits per participant)
+- Single pool (no create/join UI)
+- Supabase Auth not used
+- RLS disabled
 
 ---
 
-## Setup (first-time commissioner)
+## Setup
 
-### 1. Create a Firebase project
+### 1) Supabase tables + access
 
-1. Go to [console.firebase.google.com](https://console.firebase.google.com) and sign in
-2. **Add project** → name it anything → click through → Create project
-3. Left sidebar: **Build → Realtime Database → Create Database** → any location → **"Start in test mode"** → Enable
-4. Copy the database URL shown: `https://your-project-default-rtdb.firebaseio.com`
+Run the SQL below in Supabase (SQL editor):
 
-### 2. Run the app locally
+```sql
+-- add PIN column
+alter table pool_players add column if not exists pin text;
+
+-- drop auth.users foreign keys if still present
+do $$
+begin
+  if exists (select 1 from pg_constraint where conname = 'pools_created_by_fkey') then
+    alter table pools drop constraint pools_created_by_fkey;
+  end if;
+  if exists (select 1 from pg_constraint where conname = 'pool_players_user_id_fkey') then
+    alter table pool_players drop constraint pool_players_user_id_fkey;
+  end if;
+  if exists (select 1 from pg_constraint where conname = 'picks_user_id_fkey') then
+    alter table picks drop constraint picks_user_id_fkey;
+  end if;
+  if exists (select 1 from pg_constraint where conname = 'prop_picks_user_id_fkey') then
+    alter table prop_picks drop constraint prop_picks_user_id_fkey;
+  end if;
+  if exists (select 1 from pg_constraint where conname = 'trash_user_id_fkey') then
+    alter table trash drop constraint trash_user_id_fkey;
+  end if;
+end $$;
+
+-- allow non-auth user ids
+alter table pools alter column created_by drop not null;
+
+-- disable RLS
+alter table pools        disable row level security;
+alter table pool_players disable row level security;
+alter table picks        disable row level security;
+alter table prop_picks   disable row level security;
+alter table prop_results disable row level security;
+alter table trash        disable row level security;
+
+-- allow anon access
+grant usage on schema public to anon;
+grant select, insert, update, delete on all tables in schema public to anon;
+alter default privileges in schema public grant select, insert, update, delete on tables to anon;
+```
+
+### 2) Seed the pool + players
+
+```sql
+begin;
+
+truncate table pools cascade;
+
+with new_pool as (
+  insert into pools (buyin, prop_buyin)
+  values (20, 10)
+  returning id, share_token
+),
+players(display_name, pin) as (
+  values
+    ('Jason','9945'),
+    ('Fleisch','8251'),
+    ('Bridezilla','4405'),
+    ('Daniel','7594'),
+    ('Kevin','7274'),
+    ('Danny R','4223'),
+    ('Willjay','8685'),
+    ('Babst','3798'),
+    ('Grega','2151'),
+    ('Joshua','9004'),
+    ('Charlie','1080'),
+    ('Hageman','9663'),
+    ('Rabie','1777'),
+    ('Dave B','9179'),
+    ('Geno','0519')
+)
+insert into pool_players (pool_id, user_id, display_name, pin)
+select new_pool.id, gen_random_uuid(), players.display_name, players.pin
+from new_pool, players;
+
+select share_token from pools limit 1;
+
+commit;
+```
+
+If `gen_random_uuid()` errors once, run:
+
+```sql
+create extension if not exists pgcrypto;
+```
+
+### 3) Run locally
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open `http://localhost:5173`, paste your Firebase URL, and follow the setup flow.
+Open:
 
-### 3. Deploy to GitHub Pages
-
-```bash
-npm run build
+```
+http://localhost:5173/?pool=YOUR_TOKEN
 ```
 
-Push the repo to GitHub, then enable Pages from the `gh-pages` branch or the `dist/` folder (via GitHub Actions or manually).
-
-Because `vite.config.js` uses `base: './'`, all asset paths are relative — works in any subdirectory.
+Everyone logs in with their 4-digit PIN.
 
 ---
 
-## How it works
+## Notes
 
-Shareable URL format: `https://your-site/?fb=<firebase-url>&pool=<pool-key>`
-
-Anyone with the link lands on the join page and can pick their golfers and props without creating an account. The commissioner's name is stored in `poolData.config.by`.
-
-### Picks lock times
-- **Masters picks**: Thursday 8am ET (`MASTERS_LOCK` in `src/constants.js`)
-- **Prop bets**: Saturday 10am ET (`PROPS_LOCK` in `src/constants.js`)
-
-### Scoring
-- Masters: sum of finishing positions across your 6 picks. Missed cut = +80. Lowest wins.
-- Props: 1 point per correct answer. Closest guess wins number props (tie: lower guess wins).
-
-### Payouts
-- Masters: 70% first, 30% second
-- Props: 90% first, 10% second; tiebreak on Darren's exact score guess
-
----
-
-## Local development
-
-```bash
-npm run dev      # dev server with HMR
-npm run build    # production build → dist/
-npm run preview  # preview the dist/ build locally
-```
+- Props dropdown uses the same list as pool participants.
+- Picks lock times are in `src/constants.js`.
+- PIN auth is intentionally lightweight. Do not use for real security.
